@@ -1,0 +1,38 @@
+footer {
+    .footer-main-section {
+        border-bottom: 1px solid #C5CBD1;
+        .footer-links-heading {
+            color: #5F6B77;
+        }
+        
+        .contact-info {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #C5CBD1;
+            
+            .contact-info-address,
+            .contact-info-phone {
+                color: #384047;
+            }
+        }
+    }
+    .footer-copyright-section {
+        padding: 16px 80px 16px 80px;
+    }
+}
+@media (max-width: 767px) {
+    footer {
+        .footer-main-section {
+            padding: 32px 16px 32px 16px;
+        }
+        .footer-copyright-section {
+            padding: 16px 16px 32px 16px;
+        }
+        .primary-icon {
+            min-width: 40px;
+            min-height: 40px;
+            max-width: 40px;
+            max-height: 40px;
+        }
+    }
+}

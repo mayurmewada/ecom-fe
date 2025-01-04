@@ -25,7 +25,7 @@ const Products = () => {
     }, [filterState?.activeFilters]);
 
     return (
-        <div className="container flex w-full gap-7 !pt-[44px] !pb-[80px]">
+        <div className="container flex w-full gap-7">
             <div className="w-5/12 lg:w-4/12 xl:w-3/12 sticky h-full top-[24px] flex flex-col gap-6">
                 <Filters data={filterState.filters} />
             </div>

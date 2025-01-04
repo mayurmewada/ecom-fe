@@ -22,7 +22,7 @@ const CheckboxFilter = ({ filterData, handleChange, checked }) => {
                             <li className="py-1">
                                 <button className="py-1 flex gap-3 w-full relative">
                                     <input onChange={(e) => handleChange(e, filter.name)} name={filterValue.selector} type="checkbox" className="absolute cursor-pointer inset-0 w-full h-full opacity-0" id="" />
-                                    <Checkbox name={filterValue.selector} checked={getChecked(filter.name, filterValue.selector)} className="group block pointer-events-none min-w-[18px] min-h-[18px] max-w-[18px] max-h-[18px] rounded border bg-white data-[checked]:bg-grey-700">
+                                    <Checkbox name={filterValue.selector} checked={getChecked(filter.name, filterValue.selector)} className="group block pointer-events-none min-w-[18px] min-h-[18px] max-w-[18px] max-h-[18px] rounded border border-grey-300 bg-white data-[checked]:bg-grey-700">
                                         <svg className="stroke-white opacity-0 group-data-[checked]:opacity-100" viewBox="0 0 14 14" fill="none">
                                             <path d="M3 8L6 11L11 3.5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>

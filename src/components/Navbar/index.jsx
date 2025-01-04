@@ -1,14 +1,14 @@
 import React from "react";
-import logoTrademark from "../../../assets/images/dealdeck-logo-trademark.png";
-import Button from "../../common/Button";
-import Input from "../../common/Input";
+import logoTrademark from "../../assets/images/dealdeck-logo-trademark.png";
+import Button from "../common/Button";
+import Input from "../common/Input";
 
 const index = () => {
     return (
         <nav className="border-b border-gray-100 shadow-elevationClose min-h-[80px] flex">
             <div className="container h-full !my-auto">
                 <div className="flex justify-between">
-                    <div className="max-w-[170px] my-auto">
+                    <div className="max-w-[150px] my-auto">
                         <img src={logoTrademark} />
                     </div>
                     <Input placeholder="Seach anything..." trailingIcon={"ri-search-line text-[20px]"} className="max-w-[500px]" name="searchbar" type="text" />
