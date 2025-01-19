@@ -4,12 +4,13 @@ import Button from "../common/Button";
 import Input from "../common/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearch } from "../../redux/slices/searchSlice";
+import { Link } from "react-router-dom";
 
 const SearchHighlight = ({ text, query }) => {
     if (!query) return text;
 
     const regex = new RegExp(`(${query})`, "gi");
-    console.log(regex)
+    console.log(regex);
     const parts = text.split(regex);
 
     return (
@@ -49,31 +50,14 @@ const index = () => {
 
     document.addEventListener("mousedown", closeOpenMenus);
 
-    const getHighLightedText = (text) => {
-        const loweredText = text.toLowerCase();
-        const splitedText = loweredText.split("");
-        let matchText = [];
-        for (let i = 0; i < currSearchText.length; i++) {
-            for (let j = 0; j < splitedText.length; j++) {
-                if (splitedText[i] === currSearchText[j]) {
-                    matchText.push({ match: true, value: splitedText[i] });
-                    break;
-                } else {
-                    matchText.push({ match: false, value: splitedText[i] });
-                    break;
-                }
-            }
-        }
-        console.log(matchText);
-        return text;
-    };
-
     return (
         <nav className="border-b border-gray-100 shadow-elevationClose min-h-[80px] flex">
             <div className="container h-full !my-auto">
                 <div className="flex justify-between">
                     <div className="max-w-[150px] my-auto">
-                        <img src={logoTrademark} />
+                        <Link to={"/"}>
+                            <img src={logoTrademark} />
+                        </Link>
                     </div>
                     <div ref={searchMenu} className="relative w-full max-w-[500px]">
                         <Input onchange={handleChange} placeholder="Seach anything..." trailingIcon={"ri-search-line text-[20px]"} className="h-full" name="searchbar" type="text" />

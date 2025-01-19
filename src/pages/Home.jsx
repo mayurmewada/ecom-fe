@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <>
             <section className="container">
@@ -9,7 +11,7 @@ const Home = () => {
             <section className="container !mt-[44px]">
                 <h4 className="text-[22px] mb-4">Categories</h4>
                 <div className="flex gap-4">
-                    <div className="w-1/5 border border-gray-100 hover:border-grey-200 cursor-pointer px-4 pt-7 pb-4 flex flex-col items-center gap-6">
+                    <div onClick={() => navigate({ pathname: '/products', search: "?category=mobiles" })} className="w-1/5 border border-gray-100 hover:border-grey-200 cursor-pointer px-4 pt-7 pb-4 flex flex-col items-center gap-6">
                         <img className="aspect-square h-[60px]" src="/src/assets/images/categories/mobiles.png" alt="" />
                         <h6>Mobiles</h6>
                     </div>
