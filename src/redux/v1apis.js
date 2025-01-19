@@ -9,3 +9,7 @@ export const importProductsApi = `${api_base_url}/product/import`
 // filterSlice apis
 
 export const getFiltersApi = `${api_base_url}/filters`
+
+// searchSlice apis
+
+export const getSearchApi = `${api_base_url}/search`

@@ -39,8 +39,8 @@ const index = ({ data }) => {
 
     return (
         <>
-            {data.map((filterData) => (
-                <div className="flex flex-col gap-2">
+            {data.map((filterData, i) => (
+                <div key={i} className="flex flex-col gap-2">
                     <CheckboxFilter filterData={[filterData]} handleChange={handleChange} checked={checked} />
                 </div>
             ))}

@@ -1,5 +1,5 @@
 import { Checkbox } from "@headlessui/react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const CheckboxFilter = ({ filterData, handleChange, checked }) => {
     const getChecked = (name, selector) => {
@@ -14,12 +14,12 @@ const CheckboxFilter = ({ filterData, handleChange, checked }) => {
 
     return (
         <>
-            {filterData.map((filter) => (
-                <>
+            {filterData.map((filter, i) => (
+                <React.Fragment key={i}>
                     <p className="uppercase font-semibold text-grey-600 tracking-[0.4px]">{filter.name}</p>
                     <ul className="divide-y">
-                        {filter.values.map((filterValue) => (
-                            <li className="py-1">
+                        {filter.values.map((filterValue, i) => (
+                            <li key={`${filterValue.name}-${i}`} className="py-1">
                                 <button className="py-1 flex gap-3 w-full relative">
                                     <input onChange={(e) => handleChange(e, filter.name)} name={filterValue.selector} type="checkbox" className="absolute cursor-pointer inset-0 w-full h-full opacity-0" id="" />
                                     <Checkbox name={filterValue.selector} checked={getChecked(filter.name, filterValue.selector)} className="group block pointer-events-none min-w-[18px] min-h-[18px] max-w-[18px] max-h-[18px] rounded border border-grey-300 bg-white data-[checked]:bg-grey-700">
@@ -32,7 +32,7 @@ const CheckboxFilter = ({ filterData, handleChange, checked }) => {
                             </li>
                         ))}
                     </ul>
-                </>
+                </React.Fragment>
             ))}
         </>
     );

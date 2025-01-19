@@ -12,7 +12,7 @@ const index = ({ children }) => {
             ) : (
                 <>
                     <Navbar />
-                    <main className="pt-[44px] pb-[88px]">{children}</main>
+                    <main className="pt-[44px] pb-[144px]">{children}</main>
                     <Footer />
                 </>
             )}

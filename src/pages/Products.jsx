@@ -33,8 +33,8 @@ const Products = () => {
                 <div className="grid lg:grid-cols-4 gap-5 w-full">
                     {productState.loading ? (
                         <>
-                            {Array.from({ length: 5 }, () => (
-                                <div className="border border-gray-100 shadow-elevationClose p-4 w-full">
+                            {Array.from({ length: 5 }, (_, i) => (
+                                <div key={i} className="border border-gray-100 shadow-elevationClose p-4 w-full">
                                     <div className="animate-pulse flex flex-col space-y-4">
                                         <div className="bg-gray-200 aspect-square w-full"></div>
                                         <div className="flex flex-col py-1 gap-y-4">
@@ -50,11 +50,11 @@ const Products = () => {
                             ))}
                         </>
                     ) : productState?.products?.length ? (
-                        productState?.products?.map((product) => {
+                        productState?.products?.map((product, i) => {
                             const image = Array(product.images.split(","))[0][0];
                             // console.log(product);
                             return (
-                                <div className="border border-gray-100 shadow-elevationClose px-4 py-3 w-full h-[fit-content]">
+                                <div key={i} className="border border-gray-100 shadow-elevationClose px-4 py-3 w-full h-[fit-content]">
                                     <div className="flex flex-col space-y-4">
                                         <div className="bg-gray-200 aspect-square w-full">
                                             <img src={image} alt="" />
