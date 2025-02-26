@@ -7,5 +7,5 @@ export default defineConfig({
         port: 1111,
     },
     plugins: [react()],
-    base: "/",
+    base: "/ecom-fe",
 });
