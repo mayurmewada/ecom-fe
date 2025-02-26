@@ -5,12 +5,12 @@ import Input from "../common/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearch } from "../../redux/slices/searchSlice";
 import { Link } from "react-router-dom";
+import { pageBaseUrl } from "../../utils/constants";
 
 const SearchHighlight = ({ text, query }) => {
     if (!query) return text;
 
     const regex = new RegExp(`(${query})`, "gi");
-    console.log(regex);
     const parts = text.split(regex);
 
     return (
@@ -55,7 +55,7 @@ const index = () => {
             <div className="container h-full !my-auto">
                 <div className="flex justify-between">
                     <div className="max-w-[150px] my-auto">
-                        <Link to={"/"}>
+                        <Link to={pageBaseUrl}>
                             <img src={logoTrademark} />
                         </Link>
                     </div>

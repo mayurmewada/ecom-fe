@@ -14,7 +14,7 @@ const filterSlice = createSlice({
             state.filters = action.payload.data;
         },
         setActiveFilter: (state, action) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.activeFilters = action.payload
         }
     },
@@ -28,7 +28,7 @@ export const getFilters = (category) => {
             const { data } = await axios.post(getFiltersApi, { category });
             dispatch(getFilterSuccess(data));
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 };
@@ -37,9 +37,9 @@ export const setFilters = (filters) => {
     return (dispatch) => {
         try {
             dispatch(setActiveFilter(filters))
-            console.log(filters);
+            // console.log(filters);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 };

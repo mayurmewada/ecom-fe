@@ -29,8 +29,6 @@ const index = ({ data }) => {
         }
     };
 
-    // console.log("checked", checked);
-
     useEffect(() => {
         if (checked.length > 0) {
             dispatch(setFilters(checked));

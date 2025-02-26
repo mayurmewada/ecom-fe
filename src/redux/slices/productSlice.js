@@ -20,35 +20,36 @@ const productSlice = createSlice({
 
 export const { getProductSuccess, loading } = productSlice.actions;
 
-export const getAllProducts = () => {
+export const getAllProducts = (category) => {
     return async (dispatch) => {
         try {
             dispatch(loading(true));
+            // console.log(category);
             const wait = await setTimeout(async () => {
-                const { data } = await axios.get(getAllProductsApi);
+                const { data } = await axios.post(getAllProductsApi, { category });
                 dispatch(getProductSuccess(data.res));
                 dispatch(loading(false));
             }, 1000);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             dispatch(loading(false));
         }
     };
 };
 
-export const getFilteredProducts = (filters) => {
+export const getFilteredProducts = (category, filters) => {
     return async (dispatch) => {
         try {
-            console.log(filters);
+            // console.log(filters);
             dispatch(loading(true));
-            const wait = setTimeout(async() => {
-                const { data } = await axios.post(getFilteredProductsApi, filters);
-                console.log(data.data);
+            const wait = setTimeout(async () => {
+                const { data } = await axios.post(getFilteredProductsApi, [category, filters]);
+                // console.log(data.data);
                 dispatch(getProductSuccess(data.data));
                 dispatch(loading(false));
-            }, 1000)
+            }, 1000);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             dispatch(loading(false));
         }
     };

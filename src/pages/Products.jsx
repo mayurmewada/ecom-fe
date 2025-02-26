@@ -17,10 +17,9 @@ const Products = () => {
     useEffect(() => {
         dispatch(getFilters(category));
         if (filterState?.activeFilters.length > 0) {
-            console.log("first");
-            dispatch(getFilteredProducts(filterState.activeFilters));
+            dispatch(getFilteredProducts(category, filterState.activeFilters));
         } else {
-            dispatch(getAllProducts());
+            dispatch(getAllProducts(category));
         }
     }, [filterState?.activeFilters]);
 
@@ -52,12 +51,11 @@ const Products = () => {
                     ) : productState?.products?.length ? (
                         productState?.products?.map((product, i) => {
                             const image = Array(product.images.split(","))[0][0];
-                            // console.log(product);
                             return (
                                 <div key={i} className="border border-gray-100 shadow-elevationClose px-4 py-3 w-full h-[fit-content]">
                                     <div className="flex flex-col space-y-4">
-                                        <div className="bg-gray-200 aspect-square w-full">
-                                            <img src={image} alt="" />
+                                        <div className="flex items-center justify-center aspect-square w-full">
+                                            <img className="aspect-square object-contain" src={image} alt="" />
                                         </div>
                                         <div className="flex flex-col py-1 gap-y-4">
                                             <h6 className="line-clamp-2">{product.name}</h6>

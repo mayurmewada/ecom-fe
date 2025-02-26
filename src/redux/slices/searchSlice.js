@@ -23,7 +23,7 @@ export const getSearch = (payload) => {
             const { data } = await axios.post(getSearchApi, { search: payload });
             dispatch(getSearchSuccess(data.data));
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 };
