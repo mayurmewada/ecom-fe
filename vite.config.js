@@ -1,11 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-    server: {
-        port: 1111,
-    },
-    plugins: [react()],
-    base: "/",
+  plugins: [react()],
+  base: "/", // This should be correct for Vercel
+  build: {
+    outDir: "dist", // Make sure Vercel uses 'dist' as output
+  },
+  server: {
+    port: 1111, // For local development (not relevant to Vercel)
+  }
 });
