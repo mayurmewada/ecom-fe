@@ -50,8 +50,6 @@ const index = () => {
 
     document.addEventListener("mousedown", closeOpenMenus);
 
-    console.log(data.length);
-
     return (
         <nav className="border-b border-gray-100 shadow-elevationClose min-h-[80px] flex">
             <div className="container h-full !my-auto">
