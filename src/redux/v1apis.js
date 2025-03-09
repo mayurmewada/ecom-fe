@@ -5,6 +5,7 @@ export const getAllProductsApi = `${api_base_url}/products`
 export const getFilteredProductsApi = `${api_base_url}/products/filter`
 export const createProductsApi = `${api_base_url}/product/create`
 export const importProductsApi = `${api_base_url}/product/import`
+export const getProductDetailApi = `${api_base_url}/product`
 
 // filterSlice apis
 export const getFiltersApi = `${api_base_url}/filters`

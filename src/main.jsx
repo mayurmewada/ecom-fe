@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import "remixicon/fonts/remixicon.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 createRoot(document.getElementById("root")).render(
     // <StrictMode>

@@ -1,16 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getAllProductsApi, getFilteredProductsApi } from "../v1apis";
+import { getAllProductsApi, getFilteredProductsApi, getProductDetailApi } from "../v1apis";
 
 const productSlice = createSlice({
     name: "productSlice",
     initialState: {
         products: [],
+        product: {},
         loading: false,
     },
     reducers: {
-        getProductSuccess: (state, action) => {
+        getProductsSuccess: (state, action) => {
             state.products = action.payload;
+        },
+        getProductDetailSuccess: (state, action) => {
+            state.product = action.payload;
         },
         loading: (state, action) => {
             state.loading = action.payload;
@@ -18,7 +22,7 @@ const productSlice = createSlice({
     },
 });
 
-export const { getProductSuccess, loading } = productSlice.actions;
+export const { getProductsSuccess, getProductDetailSuccess, loading } = productSlice.actions;
 
 export const getAllProducts = (category) => {
     return async (dispatch) => {
@@ -27,7 +31,7 @@ export const getAllProducts = (category) => {
             // console.log(category);
             const wait = await setTimeout(async () => {
                 const { data } = await axios.post(getAllProductsApi, { category });
-                dispatch(getProductSuccess(data.res));
+                dispatch(getProductsSuccess(data.res));
                 dispatch(loading(false));
             }, 1000);
         } catch (error) {
@@ -50,6 +54,18 @@ export const getFilteredProducts = (category, filters) => {
             }, 1000);
         } catch (error) {
             // console.log(error);
+            dispatch(loading(false));
+        }
+    };
+};
+
+export const getProductDetails = (productId) => {
+    return async (dispatch) => {
+        try {
+            dispatch(loading(true));
+            const { data } = await axios.post(getProductDetailApi, { productId });
+            dispatch(getProductDetailSuccess(data?.data?.[0]))
+        } catch (error) {
             dispatch(loading(false));
         }
     };
