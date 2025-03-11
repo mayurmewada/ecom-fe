@@ -49,7 +49,7 @@ export const getFilteredProducts = (category, filters) => {
             const wait = setTimeout(async () => {
                 const { data } = await axios.post(getFilteredProductsApi, [category, filters]);
                 // console.log(data.data);
-                dispatch(getProductSuccess(data.data));
+                dispatch(getProductsSuccess(data.data));
                 dispatch(loading(false));
             }, 1000);
         } catch (error) {
