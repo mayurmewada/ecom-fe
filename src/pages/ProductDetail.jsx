@@ -38,7 +38,7 @@ const ProductDetail = () => {
                 <div className="w-full lg:w-5/12 xl:w-5/12 flex flex-wrap relative z-[99] bg-white">
                     <div className="w-full shadow-elevationMiddle divide-y-[1px] divide-y-grey-200 flex flex-col">
                         <div className="px-5 py-6 w-full">
-                            <h3 className="text-[20px] text-grey-500">{productDetail?.name}</h3>
+                            <h3 className="text-[20px] text-grey-500 leading-[26px]">{productDetail?.name}</h3>
                             <div className="mt-3">
                                 <span>Brand:</span> <span className="capitalize">{productDetail?.brand}</span>
                             </div>
@@ -61,7 +61,7 @@ const ProductDetail = () => {
                     </div>
                 </div>
             </div>
-            <div className="mt-12">
+            <div className="mt-[64px]">
                 <p>{productDetail?.description}</p>
             </div>
         </div>
