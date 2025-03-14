@@ -52,40 +52,51 @@ const index = () => {
 
     return (
         <nav className="border-b border-gray-100 shadow-elevationClose min-h-[80px] flex">
-            <div className="container h-full !my-auto">
+            <div className="container h-full !my-6 lg:!my-auto">
                 <div className="flex justify-between">
                     <div className="max-w-[150px] my-auto">
                         <Link to={"/"}>
                             <img src={logoTrademark} />
                         </Link>
                     </div>
-                    <div ref={searchMenu} className="relative w-full max-w-[500px]">
-                        <Input onchange={handleChange} placeholder="Seach anything..." trailingIcon={"ri-search-line text-[20px]"} className="h-full" name="searchbar" type="text" />
-                        {searchDD ? (
-                            <div className="absolute top-[120%] w-full bg-white rounded-[8px] shadow-elevationMiddle max-h-[300px] overflow-y-scroll py-3 z-[1]">
-                                <ul>
-                                    {data?.length > 0 ? (
-                                        data?.map((searchResult) => (
-                                            <li key={searchResult.id} className="py-1 px-4 hover:bg-grey-50">
-                                                <SearchHighlight text={searchResult.name} query={currSearchText} />
-                                            </li>
-                                        ))
-                                    ) : (
-                                        <li className="py-1 px-4 hover:bg-grey-50">No Search results</li>
-                                    )}
-                                </ul>
-                            </div>
-                        ) : (
-                            ""
-                        )}
+                    <div className="hidden lg:flex w-full max-w-[500px]">
+                        <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} data={data} />
                     </div>
                     <div className="flex items-center gap-5 my-auto">
                         <Button viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
                         <Button title="Sign In" trailingIcon={<i className="ri-arrow-right-fill !font-normal"></i>} variant="primary" size="medium" />
                     </div>
                 </div>
+                <div className="flex lg:hidden w-full h-[40px] mt-5">
+                    <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} data={data} />
+                </div>
             </div>
         </nav>
+    );
+};
+
+const SearchBar = ({ searchMenu, handleChange, searchDD, data }) => {
+    return (
+        <div ref={searchMenu} className="relative w-full">
+            <Input onchange={handleChange} placeholder="Seach anything..." trailingIcon={"ri-search-line text-[20px]"} className="h-full" name="searchbar" type="text" />
+            {searchDD ? (
+                <div className="absolute top-[120%] w-full bg-white rounded-[8px] shadow-elevationMiddle max-h-[300px] overflow-y-scroll py-3 z-[2]">
+                    <ul>
+                        {data?.length > 0 ? (
+                            data?.map((searchResult) => (
+                                <li key={searchResult.id} className="py-1 px-4 hover:bg-grey-50">
+                                    <SearchHighlight text={searchResult.name} query={currSearchText} />
+                                </li>
+                            ))
+                        ) : (
+                            <li className="py-1 px-4 hover:bg-grey-50">No Search results</li>
+                        )}
+                    </ul>
+                </div>
+            ) : (
+                ""
+            )}
+        </div>
     );
 };
 
