@@ -60,7 +60,7 @@ const index = () => {
                         </Link>
                     </div>
                     <div className="hidden lg:flex w-full max-w-[500px]">
-                        <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} data={data} />
+                        <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} currSearchText={currSearchText} data={data} />
                     </div>
                     <div className="flex items-center gap-5 my-auto">
                         <Button viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
@@ -68,19 +68,19 @@ const index = () => {
                     </div>
                 </div>
                 <div className="flex lg:hidden w-full h-[40px] mt-5">
-                    <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} data={data} />
+                    <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} currSearchText={currSearchText} data={data} />
                 </div>
             </div>
         </nav>
     );
 };
 
-const SearchBar = ({ searchMenu, handleChange, searchDD, data }) => {
+const SearchBar = ({ searchMenu, handleChange, searchDD, data, currSearchText }) => {
     return (
         <div ref={searchMenu} className="relative w-full">
             <Input onchange={handleChange} placeholder="Seach anything..." trailingIcon={"ri-search-line text-[20px]"} className="h-full" name="searchbar" type="text" />
             {searchDD ? (
-                <div className="absolute top-[120%] w-full bg-white rounded-[8px] shadow-elevationMiddle max-h-[300px] overflow-y-scroll py-3 z-[2]">
+                <div className="absolute top-[120%] w-full bg-white rounded-[8px] shadow-elevationMiddle max-h-[300px] overflow-y-scroll py-3 z-[100]">
                     <ul>
                         {data?.length > 0 ? (
                             data?.map((searchResult) => (
