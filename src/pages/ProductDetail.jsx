@@ -20,7 +20,7 @@ const ProductDetail = () => {
 
     useEffect(() => {
         dispatch(getProductDetails(params.search.split("=")[1]));
-    }, []);
+    }, [params]);
 
     return (
         <div className="container">
@@ -38,7 +38,7 @@ const ProductDetail = () => {
                                 ))}
                             </Carousel>
                         </div>
-                        <div className="w-full lg:w-5/12 xl:w-5/12 flex flex-wrap relative z-[99] bg-white">
+                        <div className="w-full lg:w-5/12 xl:w-5/12 flex flex-wrap relative z-[1] bg-white">
                             <div className="w-full shadow-elevationMiddle divide-y-[1px] divide-y-grey-200 flex flex-col">
                                 <div className="px-5 py-6 w-full">
                                     <h3 className="text-[20px] text-grey-500 leading-[26px]">{product?.name}</h3>

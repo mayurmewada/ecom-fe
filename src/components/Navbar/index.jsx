@@ -4,7 +4,7 @@ import Button from "../common/Button";
 import Input from "../common/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearch } from "../../redux/slices/searchSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { pageBaseUrl } from "../../utils/constants";
 
 const SearchHighlight = ({ text, query }) => {
@@ -43,7 +43,7 @@ const index = () => {
     };
 
     const closeOpenMenus = (e) => {
-        if (searchDD && !searchMenu.current?.contains(e.target)) {
+        if (!e?.target?.className?.split(" ").includes("searchdata") && searchDD && !searchMenu.current?.contains(e.target)) {
             setSearchDD(false);
         }
     };
@@ -76,20 +76,21 @@ const index = () => {
 };
 
 const SearchBar = ({ searchMenu, handleChange, searchDD, data, currSearchText }) => {
+    const navigate = useNavigate();
     return (
-        <div ref={searchMenu} className="relative w-full">
-            <Input onchange={handleChange} placeholder="Seach anything..." trailingIcon={"ri-search-line text-[20px]"} className="h-full" name="searchbar" type="text" />
+        <div ref={searchMenu} className="relative z-[2] w-full">
+            <Input onChange={handleChange} placeholder="Seach anything..." trailingIcon={"ri-search-line text-[20px]"} className="h-full" name="searchbar" type="text" />
             {searchDD ? (
-                <div className="absolute top-[120%] w-full bg-white rounded-[8px] shadow-elevationMiddle max-h-[300px] overflow-y-scroll py-3 z-[100]">
+                <div className="absolute top-[120%] w-full bg-white rounded-[8px] shadow-elevationMiddle max-h-[300px] overflow-y-scroll py-3 z-[3]">
                     <ul>
                         {data?.length > 0 ? (
                             data?.map((searchResult) => (
-                                <li key={searchResult.id} className="py-1 px-4 hover:bg-grey-50">
+                                <li onClick={() => navigate({ pathname: "/product", search: `?id=${searchResult?._id}` })} key={searchResult.id} className="py-1 px-4 hover:bg-grey-50 searchdata">
                                     <SearchHighlight text={searchResult.name} query={currSearchText} />
                                 </li>
                             ))
                         ) : (
-                            <li className="py-1 px-4 hover:bg-grey-50">No Search results</li>
+                            <li className="py-1 px-4 hover:bg-grey-50 searchdata">No Search results</li>
                         )}
                     </ul>
                 </div>
