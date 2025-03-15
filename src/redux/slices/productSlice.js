@@ -65,6 +65,7 @@ export const getProductDetails = (productId) => {
             dispatch(loading(true));
             const { data } = await axios.post(getProductDetailApi, { productId });
             dispatch(getProductDetailSuccess(data?.data?.[0]))
+            dispatch(loading(false));
         } catch (error) {
             dispatch(loading(false));
         }
