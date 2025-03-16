@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import Navbar from "../Navbar/index";
-import Footer from "../Footer/index";
+import Navbar from "./Navbar/index";
+import Footer from "./Footer/index";
 
 const index = ({ children }) => {
     const { pathname } = useLocation();

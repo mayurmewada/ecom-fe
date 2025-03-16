@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
-import logoTrademark from "../../assets/images/dealdeck-logo-trademark.png";
-import Button from "../common/Button";
-import Input from "../common/Input";
+import logoTrademark from "../../../assets/images/dealdeck-logo-trademark.png";
+import Button from "../../common/Button";
+import Input from "../../common/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearch } from "../../redux/slices/searchSlice";
+import { getSearch } from "../../../redux/slices/searchSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { pageBaseUrl } from "../../utils/constants";
+import { pageBaseUrl } from "../../../utils/constants";
 
 const SearchHighlight = ({ text, query }) => {
     if (!query) return text;

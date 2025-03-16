@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import CheckboxFilter from "../common/CheckboxFilter";
+import CheckboxFilter from "../CheckboxFilter";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilters } from "../../redux/slices/filterSlice";
+import { setFilters } from "../../../redux/slices/filterSlice";
 
 const index = ({ data }) => {
     const dispatch = useDispatch();
