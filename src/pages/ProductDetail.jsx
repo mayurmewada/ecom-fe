@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { getProductDetails } from "../redux/slices/productSlice";
 import { Carousel } from "react-responsive-carousel";
 import Button from "../components/common/Button";
@@ -9,6 +9,7 @@ import Loader from "../components/common/Loader";
 
 const ProductDetail = () => {
     const params = useLocation();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { loading, product } = useSelector((state) => state?.productSlice);
 
@@ -19,7 +20,7 @@ const ProductDetail = () => {
     };
 
     useEffect(() => {
-        dispatch(getProductDetails(params.search.split("=")[1]));
+        dispatch(getProductDetails(params.search.split("=")[1], navigate));
     }, [params]);
 
     return (

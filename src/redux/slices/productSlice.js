@@ -59,12 +59,17 @@ export const getFilteredProducts = (category, filters) => {
     };
 };
 
-export const getProductDetails = (productId) => {
+export const getProductDetails = (productId, navigate) => {
     return async (dispatch) => {
         try {
             dispatch(loading(true));
             const { data } = await axios.post(getProductDetailApi, { productId });
-            dispatch(getProductDetailSuccess(data?.data?.[0]))
+            console.log(data)
+            if (data.status === 404) {
+                navigate("/404");
+            } else {
+                dispatch(getProductDetailSuccess(data?.data?.[0]));
+            }
             dispatch(loading(false));
         } catch (error) {
             dispatch(loading(false));
