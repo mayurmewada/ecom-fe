@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import { pageBaseUrl } from "./utils/constants";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
 
 const AppRoutes = () => {
     return (
@@ -15,6 +17,8 @@ const AppRoutes = () => {
                 <Route path={`/product`} element={<ProductDetail />} />
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/404"} element={<NotFound />} />
+                <Route path={`/login`} element={<Login />} />
+                <Route path={`/signup`} element={<Signup />} />
             </Routes>
         </Layout>
     );

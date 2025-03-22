@@ -5,7 +5,6 @@ import Input from "../../common/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearch } from "../../../redux/slices/searchSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { pageBaseUrl } from "../../../utils/constants";
 
 const SearchHighlight = ({ text, query }) => {
     if (!query) return text;
