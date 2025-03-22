@@ -78,7 +78,7 @@ const SearchBar = ({ searchMenu, handleChange, searchDD, data, currSearchText })
     const navigate = useNavigate();
     return (
         <div ref={searchMenu} className="relative z-[2] w-full">
-            <Input onChange={handleChange} placeholder="Seach anything..." trailingIcon={"ri-search-line text-[20px]"} className="h-full" name="searchbar" type="text" />
+            <Input onChange={handleChange} placeholder="Seach anything..." trailingIcon={"ri-search-line text-[20px]"} name="searchbar" type="text" />
             {searchDD ? (
                 <div className="absolute top-[120%] w-full bg-white rounded-[8px] shadow-elevationMiddle max-h-[300px] overflow-y-scroll py-3 z-[3]">
                     <ul>
