@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logoTrademark from "../../../assets/images/dealdeck-logo-trademark.png";
 import Button from "../../common/Button";
 import Input from "../../common/Input";
@@ -34,6 +34,8 @@ const index = () => {
 
     const [searchDD, setSearchDD] = useState(false);
     const [currSearchText, setCurrSearchText] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isUserDD, setIsUserDD] = useState(false);
 
     const handleChange = (e) => {
         setSearchDD(true);
@@ -49,6 +51,11 @@ const index = () => {
 
     document.addEventListener("mousedown", closeOpenMenus);
 
+    useEffect(() => {
+        const isToken = localStorage.getItem("ddToken");
+        isToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    }, [localStorage]);
+
     return (
         <nav className="border-b border-gray-100 shadow-elevationClose min-h-[80px] flex">
             <div className="container h-full !my-6 lg:!my-auto">
@@ -63,7 +70,21 @@ const index = () => {
                     </div>
                     <div className="flex items-center gap-5 my-auto">
                         <Button viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
-                        <Button title="Sign In" trailingIcon={<i className="ri-arrow-right-fill !font-normal"></i>} variant="primary" size="medium" />
+                        {isLoggedIn ? (
+                            <div className="relative">
+                                <Button onBlur={() => setIsUserDD(false)} onClick={() => setIsUserDD(!isUserDD)} viewType="icon" leadingIcon={<i className="ri-account-circle-fill text-[20px]"></i>} variant="text" size="large" />
+                                {isUserDD && (
+                                    <div className="bg-white shadow-elevationMiddle rounded-[8px] absolute right-[0] w-[135px] py-3 z-[3]">
+                                        <ul>
+                                            <li className="py-1 px-4 hover:bg-grey-50">My Orders</li>
+                                            <li className="py-1 px-4 hover:bg-grey-50">Sign Out</li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <Button title="Sign In" trailingIcon={<i className="ri-arrow-right-fill !font-normal"></i>} variant="primary" size="medium" />
+                        )}
                     </div>
                 </div>
                 <div className="flex lg:hidden w-full h-[40px] mt-5">

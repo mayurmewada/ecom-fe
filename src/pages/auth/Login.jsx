@@ -5,11 +5,14 @@ import Input from "../../components/common/Input";
 import logo from "../../assets/images/dealdeck-logo-trademark.png";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const handleFormSubmit = (values) => {
-        dispatch(login(values));
+        dispatch(login(values, navigate));
     };
     return (
         <section className="bg-grey-50">

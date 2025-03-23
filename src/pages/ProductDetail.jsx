@@ -53,7 +53,7 @@ const ProductDetail = () => {
                                         <div className="w-full sm:w-5/12 lg:w-full xl:5/12 me-auto">
                                             <div className="flex">
                                                 <Button onClick={() => setCurrQuantity(currQuantity - 1)} leadingIcon={<i class="ri-subtract-fill text-[24px]"></i>} isDisabled={currQuantity === 1} variant="text" viewType="icon" size="large" type="button" />
-                                                <Input onchange={handleQuantityChange} value={currQuantity} type="number" className="[&>input]:text-center" />
+                                                <Input onchange={handleQuantityChange} value={currQuantity} type="number" wrapperClass={"w-full"} className="[&>input]:text-center" />
                                                 <Button onClick={() => setCurrQuantity(currQuantity + 1)} leadingIcon={<i class="ri-add-fill text-[24px]"></i>} variant="text" viewType="icon" size="large" type="button" />
                                             </div>
                                         </div>

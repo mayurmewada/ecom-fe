@@ -15,12 +15,12 @@ const authSlice = createSlice({
 
 export const {} = authSlice.actions;
 
-export const login = (payload) => {
+export const login = (payload, navigate) => {
     return async (dispatch) => {
         try {
-            console.log(payload);
             const { data } = await axios.post(loginApi, payload);
-            console.log(data);
+            localStorage.setItem("ddToken", data.data.token);
+            navigate("/");
         } catch (error) {
             console.log(error.message || "Something went wrong");
         }

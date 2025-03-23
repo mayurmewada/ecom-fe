@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ title=null, viewType=null, variant, size, isDisabled, type, onClick, leadingIcon = null, trailingIcon = null, className }) => {
+const Button = ({ title=null, viewType=null, variant, size, isDisabled, type, onClick, onBlur=null, leadingIcon = null, trailingIcon = null, className }) => {
     const styles = {
         small: "text-[11px] leading-[11px] px-3 py-[6px] h-[28px]",
         medium: "text-[13px] leading-[13px] px-4 py-2 h-[32px]",
@@ -12,7 +12,7 @@ const Button = ({ title=null, viewType=null, variant, size, isDisabled, type, on
     };
 
     return (
-        <button className={`flex justify-center items-center gap-x-[6px] ${styles[variant]} ${styles[size]}${viewType === "icon" ? " !px-2" : " font-semibold"} ${className}`} onClick={onClick} type={type} disabled={isDisabled}>
+        <button className={`flex justify-center items-center gap-x-[6px] ${styles[variant]} ${styles[size]}${viewType === "icon" ? " !px-2" : " font-semibold"} ${className}`} onBlur={onBlur} onClick={onClick} type={type} disabled={isDisabled}>
             {leadingIcon && leadingIcon}
             {title && title}
             {trailingIcon && trailingIcon}
