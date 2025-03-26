@@ -84,12 +84,23 @@ const index = () => {
                                     <Button className={"group-hover:text-black"} viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
                                 </div>
                                 <div className="relative">
-                                    <Button onBlur={() => setIsUserDD(false)} onClick={() => setIsUserDD(!isUserDD)} viewType="icon" leadingIcon={<i className="ri-account-circle-fill text-[20px]"></i>} variant="text" size="large" />
+                                    <Button onClick={() => setIsUserDD(!isUserDD)} viewType="icon" leadingIcon={<i className="ri-account-circle-fill text-[20px]"></i>} variant="text" size="large" />
                                     {isUserDD && (
                                         <div className="bg-white shadow-elevationMiddle rounded-[8px] absolute right-[0] w-[135px] py-3 z-[3]">
                                             <ul>
-                                                <li className="py-1 px-4 hover:bg-grey-50">My Orders</li>
-                                                <li className="py-1 px-4 hover:bg-grey-50">Sign Out</li>
+                                                <li id="userDD" className="py-1 px-4 hover:bg-grey-50">
+                                                    My Orders
+                                                </li>
+                                                <li
+                                                    id="userDD"
+                                                    onClick={() => {
+                                                        localStorage.removeItem("ddToken");
+                                                        setIsLoggedIn(false);
+                                                    }}
+                                                    className="py-1 px-4 hover:bg-grey-50"
+                                                >
+                                                    Sign Out
+                                                </li>
                                             </ul>
                                         </div>
                                     )}
