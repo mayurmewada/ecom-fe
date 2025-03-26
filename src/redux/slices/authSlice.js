@@ -26,3 +26,5 @@ export const login = (payload, navigate) => {
         }
     };
 };
+
+export default authSlice.reducer;

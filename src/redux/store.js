@@ -3,6 +3,8 @@ import productSlice from "./slices/productSlice";
 import filterSlice from "./slices/filterSlice";
 import searchSlice from "./slices/searchSlice";
 import homeSlice from "./slices/homeSlice";
+import authSlice from "./slices/authSlice";
+import userSlice from "./slices/userSlice";
 
 export default configureStore({
     reducer: {
@@ -10,5 +12,7 @@ export default configureStore({
         productSlice,
         filterSlice,
         searchSlice,
+        authSlice,
+        userSlice,
     },
 });

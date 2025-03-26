@@ -5,6 +5,7 @@ import Input from "../../common/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearch } from "../../../redux/slices/searchSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { getUserDetails } from "../../../redux/slices/userSlice";
 
 const SearchHighlight = ({ text, query }) => {
     if (!query) return text;
@@ -29,8 +30,10 @@ const SearchHighlight = ({ text, query }) => {
 
 const index = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const searchMenu = useRef(null);
     const { data } = useSelector((state) => state.searchSlice);
+    const { userDetails } = useSelector((state) => state.userSlice);
 
     const [searchDD, setSearchDD] = useState(false);
     const [currSearchText, setCurrSearchText] = useState("");
@@ -53,7 +56,12 @@ const index = () => {
 
     useEffect(() => {
         const isToken = localStorage.getItem("ddToken");
-        isToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
+        if (isToken) {
+            setIsLoggedIn(true);
+            dispatch(getUserDetails());
+        } else {
+            setIsLoggedIn(false);
+        }
     }, [localStorage]);
 
     return (
@@ -69,21 +77,29 @@ const index = () => {
                         <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} currSearchText={currSearchText} data={data} />
                     </div>
                     <div className="flex items-center gap-5 my-auto">
-                        <Button viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
                         {isLoggedIn ? (
-                            <div className="relative">
-                                <Button onBlur={() => setIsUserDD(false)} onClick={() => setIsUserDD(!isUserDD)} viewType="icon" leadingIcon={<i className="ri-account-circle-fill text-[20px]"></i>} variant="text" size="large" />
-                                {isUserDD && (
-                                    <div className="bg-white shadow-elevationMiddle rounded-[8px] absolute right-[0] w-[135px] py-3 z-[3]">
-                                        <ul>
-                                            <li className="py-1 px-4 hover:bg-grey-50">My Orders</li>
-                                            <li className="py-1 px-4 hover:bg-grey-50">Sign Out</li>
-                                        </ul>
-                                    </div>
-                                )}
-                            </div>
+                            <>
+                                <div className="bg-grey-50 [&>button]:bg-grey-50 rounded-[8px] flex items-center cursor-pointer group">
+                                    <span className="pl-3 pr-2 text-grey-500 font-semibold">{userDetails?.cart?.length}</span>
+                                    <Button className={"group-hover:text-black"} viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
+                                </div>
+                                <div className="relative">
+                                    <Button onBlur={() => setIsUserDD(false)} onClick={() => setIsUserDD(!isUserDD)} viewType="icon" leadingIcon={<i className="ri-account-circle-fill text-[20px]"></i>} variant="text" size="large" />
+                                    {isUserDD && (
+                                        <div className="bg-white shadow-elevationMiddle rounded-[8px] absolute right-[0] w-[135px] py-3 z-[3]">
+                                            <ul>
+                                                <li className="py-1 px-4 hover:bg-grey-50">My Orders</li>
+                                                <li className="py-1 px-4 hover:bg-grey-50">Sign Out</li>
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            </>
                         ) : (
-                            <Button title="Sign In" trailingIcon={<i className="ri-arrow-right-fill !font-normal"></i>} variant="primary" size="medium" />
+                            <>
+                                <Button className={"group-hover:text-black"} viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
+                                <Button onClick={() => navigate("/login")} title="Sign In" trailingIcon={<i className="ri-arrow-right-fill !font-normal"></i>} variant="primary" size="medium" />
+                            </>
                         )}
                     </div>
                 </div>
