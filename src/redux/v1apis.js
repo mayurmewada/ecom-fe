@@ -18,6 +18,7 @@ export const getHomeDataApi = `${api_base_url}/home`;
 
 // authSLice apis
 export const loginApi = `${api_base_url}/login`;
+export const signupApi = `${api_base_url}/signup`;
 
 // userSlice apis
 export const getUserDetailsApi = `${api_base_url}/getuserdetails`;

@@ -66,7 +66,7 @@ const Login = () => {
                         </Formik>
                         <Button className={"mt-8 mb-5"} title="Forgot Password" leadingIcon={<i className="ri-question-fill font-normal text-[18px]"></i>} />
                         <p className="inline-flex whitespace-pre mb-4">
-                            Need Access ? <Button title={"Create An Account"} />
+                            Need Access ? <Button onClick={() => navigate("/signup")} title={"Create An Account"} />
                         </p>
                     </div>
                 </div>

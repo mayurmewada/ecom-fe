@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { loginApi } from "../v1apis";
+import { loginApi, signupApi } from "../v1apis";
 
 const authSlice = createSlice({
     name: "authSlice",
@@ -21,6 +21,17 @@ export const login = (payload, navigate) => {
             const { data } = await axios.post(loginApi, payload);
             localStorage.setItem("ddToken", data.data.token);
             navigate("/");
+        } catch (error) {
+            console.log(error.message || "Something went wrong");
+        }
+    };
+};
+
+export const signup = (payload, navigate) => {
+    return async () => {
+        try {
+            const { data } = await axios.post(signupApi, payload);
+            navigate("/login");
         } catch (error) {
             console.log(error.message || "Something went wrong");
         }
