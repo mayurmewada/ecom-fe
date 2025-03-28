@@ -6,6 +6,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getFilters } from "../redux/slices/filterSlice";
 import Button from "../components/common/Button";
 import Offcanvas from "../components/common/Offcanvas";
+import { getFormatedAmount } from "../utils/helperFunctions";
 
 const Products = () => {
     const dispatch = useDispatch();
@@ -73,7 +74,7 @@ const Products = () => {
                                             </div>
                                             <div className="flex flex-col py-1 gap-y-4">
                                                 <h6 className="line-clamp-2">{product.name}</h6>
-                                                <p className="text-[20px]">&#8377; {product.price}</p>
+                                                <p className="text-[20px]">{getFormatedAmount(product.price)}</p>
                                                 <Button title="Add to Cart" variant="secondary" size="medium" onClick={() => {}} />
                                             </div>
                                         </div>

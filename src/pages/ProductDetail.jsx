@@ -6,6 +6,7 @@ import { Carousel } from "react-responsive-carousel";
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 import Loader from "../components/common/Loader";
+import { getFormatedAmount } from "../utils/helperFunctions";
 
 const ProductDetail = () => {
     const params = useLocation();
@@ -46,7 +47,7 @@ const ProductDetail = () => {
                                     <div className="mt-3">
                                         <span>Brand:</span> <span className="capitalize">{product?.brand}</span>
                                     </div>
-                                    <p className="text-[24px] mt-5">&#8377; {product?.price * currQuantity}</p>
+                                    <p className="text-[24px] mt-5">{getFormatedAmount(product?.price * currQuantity)}</p>
                                 </div>
                                 <div className="px-5 py-6 w-full mt-auto">
                                     <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-8">
