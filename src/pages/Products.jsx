@@ -7,18 +7,58 @@ import { getFilters } from "../redux/slices/filterSlice";
 import Button from "../components/common/Button";
 import Offcanvas from "../components/common/Offcanvas";
 import { getFormatedAmount } from "../utils/helperFunctions";
+import { addToCart } from "../redux/slices/userSlice";
 
 const Products = () => {
     const dispatch = useDispatch();
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const category = searchParams.get("category");
 
     const [filterDrawer, setFilterDrawer] = useState(false);
+    // const [render, setRender] = useState(false);
 
     const navigate = useNavigate();
 
     const filterState = useSelector((state) => state.filterSlice);
     const productState = useSelector((state) => state.productSlice);
+
+    // const param = new URLSearchParams(searchParams);
+    // const filtersParam = param.get("filters");
+
+    // const updateUrl = () => {
+    //     const filterNames = filterState?.filters?.map((d) => {
+    //         let names = [];
+    //         if (!names.includes(d.name.toLowerCase())) {
+    //             names.push(d.name.toLowerCase());
+    //         }
+    //         return names;
+    //     });
+
+    //     const filters = filtersParam?.split(",") || {};
+
+    //     let tempParam = [];
+    //     for (let i = 0; i < filters.length; i++) {
+    //         let [key, value] = filters[i].split(":");
+    //         if (filterNames.flat().includes(key)) {
+    //             tempParam.push(`${key}:${value}`);
+    //         } else {
+    //             param.delete(key);
+    //         }
+    //     }
+    //     if (tempParam.length > 0) {
+    //         param.set("filters", tempParam.join(","));
+    //         setSearchParams(param);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     setRender(true);
+    // }, [param]);
+
+    // useEffect(() => {
+    //     updateUrl();
+    //     setRender(false);
+    // }, [render]);
 
     useEffect(() => {
         dispatch(getFilters(category));
@@ -28,6 +68,12 @@ const Products = () => {
             dispatch(getAllProducts(category));
         }
     }, [filterState?.activeFilters, searchParams]);
+
+    const handleAddToCart = (e, productId) => {
+        e.stopPropagation();
+        console.log(productId);
+        dispatch(addToCart(productId));
+    };
 
     return (
         <div className="container">
@@ -75,7 +121,7 @@ const Products = () => {
                                             <div className="flex flex-col py-1 gap-y-4">
                                                 <h6 className="line-clamp-2">{product.name}</h6>
                                                 <p className="text-[20px]">{getFormatedAmount(product.price)}</p>
-                                                <Button title="Add to Cart" variant="secondary" size="medium" onClick={() => {}} />
+                                                <Button title="Add to Cart" variant="secondary" size="medium" onClick={(e) => handleAddToCart(e, product._id)} />
                                             </div>
                                         </div>
                                     </div>

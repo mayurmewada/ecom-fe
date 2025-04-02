@@ -7,6 +7,7 @@ import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 import Loader from "../components/common/Loader";
 import { getFormatedAmount } from "../utils/helperFunctions";
+import { addToCart } from "../redux/slices/userSlice";
 
 const ProductDetail = () => {
     const params = useLocation();
@@ -18,6 +19,11 @@ const ProductDetail = () => {
 
     const handleQuantityChange = (e) => {
         setCurrQuantity(e.target.value);
+    };
+
+    const handleAddToCart = () => {
+        console.log(product._id, currQuantity)
+        dispatch(addToCart(product._id, currQuantity));
     };
 
     useEffect(() => {
@@ -53,13 +59,28 @@ const ProductDetail = () => {
                                     <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-8">
                                         <div className="w-full sm:w-5/12 lg:w-full xl:5/12 me-auto">
                                             <div className="flex">
-                                                <Button onClick={() => setCurrQuantity(currQuantity - 1)} leadingIcon={<i class="ri-subtract-fill text-[24px]"></i>} isDisabled={currQuantity === 1} variant="text" viewType="icon" size="large" type="button" />
+                                                <Button
+                                                    onClick={() => setCurrQuantity(currQuantity - 1)}
+                                                    leadingIcon={<i class="ri-subtract-fill text-[24px]"></i>}
+                                                    isDisabled={currQuantity === 1}
+                                                    variant="text"
+                                                    viewType="icon"
+                                                    size="large"
+                                                    type="button"
+                                                />
                                                 <Input onchange={handleQuantityChange} value={currQuantity} type="number" wrapperClass={"w-full"} className="[&>input]:text-center" />
-                                                <Button onClick={() => setCurrQuantity(currQuantity + 1)} leadingIcon={<i class="ri-add-fill text-[24px]"></i>} variant="text" viewType="icon" size="large" type="button" />
+                                                <Button
+                                                    onClick={() => setCurrQuantity(currQuantity + 1)}
+                                                    leadingIcon={<i class="ri-add-fill text-[24px]"></i>}
+                                                    variant="text"
+                                                    viewType="icon"
+                                                    size="large"
+                                                    type="button"
+                                                />
                                             </div>
                                         </div>
                                         <div className="w-full sm:w-6/12 lg:w-full xl:6/12">
-                                            <Button className="w-full" isDisabled={currQuantity == 0} title="Add to Cart" variant="primary" size="large" type="button" />
+                                            <Button onClick={handleAddToCart} className="w-full" isDisabled={currQuantity == 0} title="Add to Cart" variant="primary" size="large" type="button" />
                                         </div>
                                     </div>
                                 </div>

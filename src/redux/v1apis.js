@@ -22,3 +22,4 @@ export const signupApi = `${api_base_url}/signup`;
 
 // userSlice apis
 export const getUserDetailsApi = `${api_base_url}/getuserdetails`;
+export const addToCartApi = `${api_base_url}/addtocart`;
