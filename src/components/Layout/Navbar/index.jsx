@@ -108,7 +108,7 @@ const index = () => {
                             </>
                         ) : (
                             <>
-                                <Button className={"group-hover:text-black"} viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
+                                <Button onClick={() => navigate("/cart")} className={"group-hover:text-black"} viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
                                 <Button onClick={() => navigate("/login")} title="Sign In" trailingIcon={<i className="ri-arrow-right-fill !font-normal"></i>} variant="primary" size="medium" />
                             </>
                         )}

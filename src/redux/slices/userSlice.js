@@ -44,19 +44,23 @@ export const getCartDetails = () => {
 export const addToCart = (productId, qnty = 1, action = "incr") => {
     return async (dispatch) => {
         try {
-            console.log(productId, qnty, action)
+            console.log(productId, qnty, action);
             const token = localStorage.getItem("ddToken");
             if (token) {
-                const data = await axios.post(addToCartApi, [productId, qnty, action],{ headers: { Authorization: token } });
-                console.log(data)
+                const data = await axios.post(addToCartApi, [productId, qnty, action], { headers: { Authorization: token } });
+                console.log(data);
             } else {
-                const getSessionCart = JSON.parse(sessionStorage.getItem("ddCart"));
-                let cart = getSessionCart || {};
+                const getSessionCart = JSON.parse(sessionStorage.getItem("ddCart")) || [];
+                let cart = getSessionCart || [];
                 if (cart.length > 0) {
                     for (let i = 0; i < cart.length; i++) {
                         if (cart[i].id == productId) {
-                            var currqnty = cart[i].qnty;
-                            cart[i].qnty = currqnty + qnty;
+                            const currqnty = cart[i].qnty;
+                            if (action === "incr") {
+                                cart[i].qnty = currqnty + qnty;
+                            } else if (action === "decr") {
+                                cart[i].qnty = currqnty - qnty;
+                            }
                             sessionStorage.setItem("ddCart", JSON.stringify(cart));
                             return;
                         }

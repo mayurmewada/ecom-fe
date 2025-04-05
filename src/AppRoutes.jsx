@@ -8,6 +8,7 @@ import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
+import Cart from "./pages/Cart";
 
 const AppRoutes = () => {
     return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
             <Routes>
                 <Route path={`/products`} element={<Products />} />
                 <Route path={`/product`} element={<ProductDetail />} />
+                <Route path={`/cart`} element={<Cart />} />
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/404"} element={<NotFound />} />
                 <Route path={`/login`} element={<Login />} />
