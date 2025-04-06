@@ -12,7 +12,6 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const handleFormSubmit = (values) => {
-      console.log(values)
         dispatch(signup(values, navigate));
     };
     return (

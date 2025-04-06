@@ -7,7 +7,7 @@ import { getFilters } from "../redux/slices/filterSlice";
 import Button from "../components/common/Button";
 import Offcanvas from "../components/common/Offcanvas";
 import { getFormatedAmount } from "../utils/helperFunctions";
-import { addToCart } from "../redux/slices/userSlice";
+import { addToCart } from "../redux/slices/cartSlice";
 
 const Products = () => {
     const dispatch = useDispatch();
@@ -69,10 +69,9 @@ const Products = () => {
         }
     }, [filterState?.activeFilters, searchParams]);
 
-    const handleAddToCart = (e, productId) => {
+    const handleAddToCart = (e, productId, brand, price) => {
         e.stopPropagation();
-        console.log(productId);
-        dispatch(addToCart(productId));
+        dispatch(addToCart(productId, brand, price));
     };
 
     return (
@@ -121,7 +120,7 @@ const Products = () => {
                                             <div className="flex flex-col py-1 gap-y-4">
                                                 <h6 className="line-clamp-2">{product.name}</h6>
                                                 <p className="text-[20px]">{getFormatedAmount(product.price)}</p>
-                                                <Button title="Add to Cart" variant="secondary" size="medium" onClick={(e) => handleAddToCart(e, product._id)} />
+                                                <Button title="Add to Cart" variant="secondary" size="medium" onClick={(e) => handleAddToCart(e, product._id, product.brand, product.price)} />
                                             </div>
                                         </div>
                                     </div>

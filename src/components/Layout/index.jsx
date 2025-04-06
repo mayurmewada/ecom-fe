@@ -5,8 +5,6 @@ import Footer from "./Footer/index";
 
 const index = ({ children }) => {
     const { pathname } = useLocation();
-
-    console.log(pathname);
     return (
         <>
             {pathname === "/login" || pathname === "/signup" ? (

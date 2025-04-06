@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSearch } from "../../../redux/slices/searchSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserDetails } from "../../../redux/slices/userSlice";
+import { getCartLength } from "../../../redux/slices/cartSlice";
 
 const SearchHighlight = ({ text, query }) => {
     if (!query) return text;
@@ -34,6 +35,7 @@ const index = () => {
     const searchMenu = useRef(null);
     const { data } = useSelector((state) => state.searchSlice);
     const { userDetails } = useSelector((state) => state.userSlice);
+    const { cartlength } = useSelector((state) => state.cartSlice);
 
     const [searchDD, setSearchDD] = useState(false);
     const [currSearchText, setCurrSearchText] = useState("");
@@ -56,13 +58,13 @@ const index = () => {
 
     useEffect(() => {
         const isToken = localStorage.getItem("ddToken");
-        if (isToken) {
-            setIsLoggedIn(true);
-            dispatch(getUserDetails());
-        } else {
-            setIsLoggedIn(false);
-        }
+        dispatch(getUserDetails());
+        setIsLoggedIn(!!isToken);
     }, [localStorage]);
+
+    useEffect(() => {
+        dispatch(getCartLength());
+    }, [isLoggedIn]);
 
     return (
         <nav className="border-b border-gray-100 shadow-elevationClose min-h-[80px] flex">
@@ -77,12 +79,16 @@ const index = () => {
                         <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} currSearchText={currSearchText} data={data} />
                     </div>
                     <div className="flex items-center gap-5 my-auto">
+                        {cartlength ? (
+                            <div onClick={() => navigate("/cart")} className="bg-grey-50 [&>button]:bg-grey-50 rounded-[8px] flex items-center cursor-pointer group">
+                                <span className="pl-3 pr-2 text-grey-500 font-semibold">{cartlength}</span>
+                                <Button className={"group-hover:text-black"} viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
+                            </div>
+                        ) : (
+                            <Button onClick={() => navigate("/cart")} className={"group-hover:text-black"} viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
+                        )}
                         {isLoggedIn ? (
                             <>
-                                <div className="bg-grey-50 [&>button]:bg-grey-50 rounded-[8px] flex items-center cursor-pointer group">
-                                    <span className="pl-3 pr-2 text-grey-500 font-semibold">{userDetails?.cart?.length}</span>
-                                    <Button className={"group-hover:text-black"} viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
-                                </div>
                                 <div className="relative">
                                     <Button onClick={() => setIsUserDD(!isUserDD)} viewType="icon" leadingIcon={<i className="ri-account-circle-fill text-[20px]"></i>} variant="text" size="large" />
                                     {isUserDD && (
@@ -94,8 +100,8 @@ const index = () => {
                                                 <li
                                                     id="userDD"
                                                     onClick={() => {
-                                                        localStorage.removeItem("ddToken");
                                                         setIsLoggedIn(false);
+                                                        localStorage.removeItem("ddToken");
                                                     }}
                                                     className="py-1 px-4 hover:bg-grey-50"
                                                 >
@@ -107,10 +113,7 @@ const index = () => {
                                 </div>
                             </>
                         ) : (
-                            <>
-                                <Button onClick={() => navigate("/cart")} className={"group-hover:text-black"} viewType="icon" leadingIcon={<i className="ri-shopping-cart-2-fill text-[20px]"></i>} variant="text" size="large" />
-                                <Button onClick={() => navigate("/login")} title="Sign In" trailingIcon={<i className="ri-arrow-right-fill !font-normal"></i>} variant="primary" size="medium" />
-                            </>
+                            <Button className={"h-[40px]"} onClick={() => navigate("/login")} title="Sign In" trailingIcon={<i className="ri-arrow-right-fill !font-normal"></i>} variant="primary" size="medium" />
                         )}
                     </div>
                 </div>

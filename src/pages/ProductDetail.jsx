@@ -7,7 +7,7 @@ import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 import Loader from "../components/common/Loader";
 import { getFormatedAmount } from "../utils/helperFunctions";
-import { addToCart } from "../redux/slices/userSlice";
+import { addToCart } from "../redux/slices/cartSlice";
 
 const ProductDetail = () => {
     const params = useLocation();
@@ -22,7 +22,6 @@ const ProductDetail = () => {
     };
 
     const handleAddToCart = () => {
-        console.log(product._id, currQuantity)
         dispatch(addToCart(product._id, currQuantity));
     };
 

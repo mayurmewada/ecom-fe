@@ -64,7 +64,6 @@ export const getProductDetails = (productId, navigate) => {
         try {
             dispatch(loading(true));
             const { data } = await axios.post(getProductDetailApi, { productId });
-            console.log(data)
             if (data.status === 404) {
                 navigate("/404");
             } else {
