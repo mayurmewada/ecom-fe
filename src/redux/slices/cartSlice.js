@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addToCartApi, cartLengthApi } from "../v1apis";
+import { addToCartApi, cartDetailsApi, cartLengthApi } from "../v1apis";
 
 const cartSlice = createSlice({
     name: "cartSlice",
@@ -13,14 +13,26 @@ const cartSlice = createSlice({
         updateCartLength: (state, action) => {
             state.cartlength = action.payload;
         },
+        fetchCartSuccess: (state, action) => {
+            state.cart = action.payload;
+        },
     },
 });
 
-export const { updateCartLength } = cartSlice.actions;
+export const { updateCartLength, fetchCartSuccess } = cartSlice.actions;
 
 export const getCartDetails = () => {
     return async (dispatch) => {
         try {
+            const token = localStorage.getItem("ddToken");
+            console.log(token);
+            if (token) {
+                const { data } = await axios.get(cartDetailsApi, { headers: { Authorization: token } });
+                dispatch(fetchCartSuccess(data.data.cart));
+            } else {
+                const sessionCart = JSON.parse(sessionStorage.getItem("ddCart"));
+                dispatch(fetchCartSuccess(sessionCart));
+            }
         } catch (error) {
             console.log(error.message || "Something went wrong");
         }
@@ -44,10 +56,11 @@ export const getCartLength = () => {
     };
 };
 
-export const addToCart = (productId, brand, price, qnty = 1, action = "incr") => {
+export const addToCart = (productId, name = "", brand = "", price = "", qnty = 1, action = "incr") => {
     return async (dispatch) => {
         try {
             const token = localStorage.getItem("ddToken");
+            console.log(productId, name, brand, price, qnty, action);
             if (token) {
                 const res = await axios.post(addToCartApi, [productId, qnty, action], { headers: { Authorization: token } });
                 if (res.status === 200) {
@@ -66,13 +79,13 @@ export const addToCart = (productId, brand, price, qnty = 1, action = "incr") =>
                             } else if (action === "decr") {
                                 cart[i].qnty = currqnty - qnty;
                             }
-                            sessionStorage.setItem("ddCart", JSON.stringify(cart));
+                            sessionStorage.setItem("ddCart", JSON.stringify(cart.filter((item) => item.qnty > 0)));
                             return;
                         }
                     }
                 }
                 getSessionCart.length > 0 ? "" : (cart = []);
-                cart.push({ id: productId, qnty, brand, price });
+                cart.push({ id: productId, name, qnty, brand, price });
                 dispatch(updateCartLength(cart.length));
                 sessionStorage.setItem("ddCart", JSON.stringify(cart));
             }

@@ -22,5 +22,8 @@ export const signupApi = `${api_base_url}/signup`;
 
 // userSlice apis
 export const getUserDetailsApi = `${api_base_url}/getuserdetails`;
+
+// cartSlice apis
 export const addToCartApi = `${api_base_url}/addtocart`;
 export const cartLengthApi = `${api_base_url}/cartitems`;
+export const cartDetailsApi = `${api_base_url}/cartdetails`;

@@ -90,7 +90,7 @@ const index = () => {
                         {isLoggedIn ? (
                             <>
                                 <div className="relative">
-                                    <Button onClick={() => setIsUserDD(!isUserDD)} viewType="icon" leadingIcon={<i className="ri-account-circle-fill text-[20px]"></i>} variant="text" size="large" />
+                                    <Button onClick={() => setIsUserDD(!isUserDD)} viewType="icon" leadingIcon={<i className="ri-account-circle-fill text-[24px]"></i>} variant="text" size="large" />
                                     {isUserDD && (
                                         <div className="bg-white shadow-elevationMiddle rounded-[8px] absolute right-[0] w-[135px] py-3 z-[3]">
                                             <ul>

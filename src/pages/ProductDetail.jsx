@@ -22,7 +22,7 @@ const ProductDetail = () => {
     };
 
     const handleAddToCart = () => {
-        dispatch(addToCart(product._id, currQuantity));
+        dispatch(addToCart(product._id, product.name, product.brand, product.price, currQuantity));
     };
 
     useEffect(() => {

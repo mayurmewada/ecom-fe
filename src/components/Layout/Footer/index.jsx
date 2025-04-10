@@ -46,9 +46,9 @@ const index = () => {
             <div className="container !py-4">
                 <div className="flex flex-col lg:flex-row gap-8 sm:gap-7">
                     <div className="w-full">
-                        <div className={`auth-footer md:mt-auto flex flex-col gap-3 xl:flex-row items-baseline justify-between xl:gap-5`}>
-                            <p className="text-[13px] w-full lg:w-8/12 xl:w-9/12">© 2025 DealDeck. All right reserved.</p>
-                            <div className="auth-footer-links w-full lg:w-4/12 xl:w-3/12 flex items-center justify-left flex-wrap gap-x-6">
+                        <div className={`auth-footer md:mt-auto flex flex-col gap-3 md:flex-row items-baseline justify-between xl:gap-5`}>
+                            <p className="text-[13px] w-full md:w-8/12 xl:w-9/12">© 2025 DealDeck. All right reserved.</p>
+                            <div className="auth-footer-links w-full md:w-4/12 xl:w-3/12 flex items-center justify-left flex-wrap gap-x-6">
                                 <a className="text-[13px]" href="/">
                                     Privacy Policy
                                 </a>

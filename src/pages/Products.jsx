@@ -69,9 +69,9 @@ const Products = () => {
         }
     }, [filterState?.activeFilters, searchParams]);
 
-    const handleAddToCart = (e, productId, brand, price) => {
+    const handleAddToCart = (e, productId, productName, brand, price) => {
         e.stopPropagation();
-        dispatch(addToCart(productId, brand, price));
+        dispatch(addToCart(productId, productName, brand, price));
     };
 
     return (
@@ -120,7 +120,7 @@ const Products = () => {
                                             <div className="flex flex-col py-1 gap-y-4">
                                                 <h6 className="line-clamp-2">{product.name}</h6>
                                                 <p className="text-[20px]">{getFormatedAmount(product.price)}</p>
-                                                <Button title="Add to Cart" variant="secondary" size="medium" onClick={(e) => handleAddToCart(e, product._id, product.brand, product.price)} />
+                                                <Button title="Add to Cart" variant="secondary" size="medium" onClick={(e) => handleAddToCart(e, product._id, product.name, product.brand, product.price)} />
                                             </div>
                                         </div>
                                     </div>

@@ -17,10 +17,10 @@ const Home = () => {
     return (
         <>
             <section className="container">
-                <div className="bg-grey-50 h-[300px] w-full flex justify-center items-center">Banner coming soon</div>
+                <div className="bg-grey-50 h-[300px] w-full flex justify-center items-center font-semibold text-grey-500">Banner coming soon</div>
             </section>
             <section className="container !mt-[44px]">
-                <h4 className="text-[22px] mb-4">Categories</h4>
+                <h4 className="text-[22px] mb-4 font-semibold text-grey-500">Shop by Categories</h4>
                 <div className="flex flex-wrap lg:flex-nowrap gap-4">
                     {loading ? (
                         <Loader />
