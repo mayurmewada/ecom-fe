@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import logoTrademark from "../../../assets/images/dealdeck-logo-trademark.png";
 import Button from "../../common/Button";
 import Input from "../../common/Input";
@@ -7,6 +7,7 @@ import { getSearch } from "../../../redux/slices/searchSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserDetails } from "../../../redux/slices/userSlice";
 import { getCartLength } from "../../../redux/slices/cartSlice";
+import { debounce } from "lodash";
 
 const SearchHighlight = ({ text, query }) => {
     if (!query) return text;
@@ -42,10 +43,18 @@ const index = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isUserDD, setIsUserDD] = useState(false);
 
+    const debouncedSearch = useCallback(
+        debounce((text) => {
+            dispatch(getSearch(text));
+        }, 500),
+        []
+    );
+
     const handleChange = (e) => {
         setSearchDD(true);
-        setCurrSearchText(e.target.value);
-        dispatch(getSearch(e.target.value));
+        const value = e.target.value;
+        setCurrSearchText(value);
+        debouncedSearch(value);
     };
 
     const closeOpenMenus = (e) => {
