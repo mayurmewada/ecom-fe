@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addToCartApi, cartDetailsApi, cartLengthApi } from "../v1apis";
+import { addToCartApi, cartDetailsApi, cartLengthApi, createOrderApi } from "../v1apis";
 
 const cartSlice = createSlice({
     name: "cartSlice",
@@ -89,6 +89,41 @@ export const addToCart = (productId, name = "", brand = "", price = "", qnty = 1
                 dispatch(updateCartLength(cart.length));
                 sessionStorage.setItem("ddCart", JSON.stringify(cart));
             }
+        } catch (error) {
+            console.log(error.message || "Something went wrong");
+        }
+    };
+};
+
+export const createOrder = (Razorpay) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios.post(createOrderApi);
+            console.log(data);
+
+            const options = {
+                key: "rzp_key_id",
+                amount: data.amount,
+                currency: data.currency,
+                name: "Test Company",
+                description: "Test Transaction",
+                order_id: data.id,
+                handler: (response) => {
+                    console.log(response);
+                    alert("Payment Successful!");
+                },
+                prefill: {
+                    name: "John Doe",
+                    email: "john.doe@example.com",
+                    contact: "9999999999",
+                },
+                theme: {
+                    color: "#22262b",
+                },
+            };
+
+            const razorpayInstance = await new Razorpay(options);
+            razorpayInstance.open();
         } catch (error) {
             console.log(error.message || "Something went wrong");
         }

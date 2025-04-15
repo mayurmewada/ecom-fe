@@ -3,16 +3,18 @@ import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
 import Input from "../components/common/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, getCartDetails } from "../redux/slices/cartSlice";
+import { addToCart, createOrder, getCartDetails } from "../redux/slices/cartSlice";
 import { getFormatedAmount } from "../utils/helperFunctions";
+import { useRazorpay } from "react-razorpay";
 
 const Cart = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState();
     const [refetch, setRefetch] = useState(false);
     const { cart } = useSelector((state) => state.cartSlice);
+    const { error, isLoading, Razorpay } = useRazorpay();
 
-    console.log(cart)
+    console.log(cart);
 
     const getTotalItems = () => {
         let items = 0;
@@ -38,11 +40,15 @@ const Cart = () => {
     };
 
     useEffect(() => {
-        setLoading(true)
+        setLoading(true);
         dispatch(getCartDetails());
         setRefetch(false);
-        setLoading(false)
+        setLoading(false);
     }, [refetch]);
+
+    const handlePayment = () => {
+        // dispatch(createOrder(Razorpay));
+    };
 
     return (
         <div className="container">
@@ -109,7 +115,7 @@ const Cart = () => {
                                         <span className="w-[50%] text-left font-semibold text-grey-500">Total</span>
                                         <span className="w-[50%] text-right text-[18px] font-bold">{getFormatedAmount(getTotalPrice())}</span>
                                     </div>
-                                    <Button className={"w-full"} title={"Checkout"} variant={"primary"} size={"large"} />
+                                    <Button onClick={handlePayment} className={"w-full"} title={"Checkout"} variant={"primary"} size={"large"} />
                                 </div>
                             </div>
                         </div>
