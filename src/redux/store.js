@@ -6,6 +6,7 @@ import homeSlice from "./slices/homeSlice";
 import authSlice from "./slices/authSlice";
 import userSlice from "./slices/userSlice";
 import cartSlice from "./slices/cartSlice";
+import orderSlice from "./slices/orderSlice";
 
 export default configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export default configureStore({
         searchSlice,
         authSlice,
         userSlice,
-        cartSlice
+        cartSlice,
+        orderSlice,
     },
 });

@@ -3,9 +3,10 @@ import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
 import Input from "../components/common/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, createOrder, getCartDetails } from "../redux/slices/cartSlice";
+import { addToCart, getCartDetails } from "../redux/slices/cartSlice";
 import { getFormatedAmount } from "../utils/helperFunctions";
 import { useRazorpay } from "react-razorpay";
+import { createOrder } from "../redux/slices/orderSlice";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const Cart = () => {
     }, [refetch]);
 
     const handlePayment = () => {
-        // dispatch(createOrder(Razorpay));
+        dispatch(createOrder(Razorpay));
     };
 
     return (
