@@ -9,6 +9,11 @@
     font-family: "Figtree", serif !important;
 }
 
+*:focus-visible {
+    outline-color: orange;
+    outline-offset: 4px;
+}
+
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -97,4 +102,10 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
     -moz-appearance: textfield;
+}
+
+@media (max-width: 767px) {
+    .container {
+        padding: 0 15px;
+    }
 }

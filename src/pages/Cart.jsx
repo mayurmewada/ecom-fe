@@ -58,12 +58,12 @@ const Cart = () => {
                     <Loader />
                 ) : (
                     <>
-                        <div className="w-full lg:w-8/12 xl:w-8/12 sticky h-full top-[24px] flex flex-col gap-6">
+                        <div className="w-full lg:w-8/12 xl:w-8/12 h-full top-[24px] flex flex-col gap-6">
                             <ul className="divide-y divide-y-grey-200">
                                 {cart?.map((item) => (
                                     <li className="flex">
                                         <div className="bg-grey-50 w-[16px]"></div>
-                                        <div className="flex gap-12 py-5 pl-4 justify-between w-full">
+                                        <div className="flex flex-col md:flex-row gap-x-12 gap-y-6 py-5 pl-4 justify-between w-full">
                                             <div className="flex flex-col justify-between w-full gap-5">
                                                 <Link className="hover:text-black inline text-[18px] font-semibold leading-[1.2] text-grey-500">
                                                     {item.name}
@@ -71,8 +71,8 @@ const Cart = () => {
                                                 </Link>
                                                 <span className="block text-[13px] font-semibold text-grey-500 capitalize">{item.brand}</span>
                                             </div>
-                                            <div className="flex gap-6">
-                                                <div className="w-[175px] flex flex-col gap-3 items-center">
+                                            <div className="flex flex-col-reverse md:flex-row gap-x-6 gap-y-7">
+                                                <div className="w-full md:w-[175px] flex flex-row-reverse md:flex-col gap-x-8 gap-y-3 items-center">
                                                     <div className="flex w-full">
                                                         <Button onClick={() => handleQuantity(item._id || item.id, "decr")} isDisabled={item.qnty <= 1} leadingIcon={<i class="ri-subtract-fill text-[24px]"></i>} variant="text" viewType="icon" size="large" type="button" />
                                                         <Input onchange={() => {}} value={item.qnty} type="number" wrapperClass={"w-full"} className="[&>input]:text-center" />
@@ -80,8 +80,8 @@ const Cart = () => {
                                                     </div>
                                                     <Button onClick={() => handleRemoveProduct(item._id || item.id, item.qnty)} title={"Remove"} leadingIcon={<i class="ri-delete-bin-6-fill"></i>} variant="text" viewType="icon" size="large" type="button" />
                                                 </div>
-                                                <div className="w-[100px] flex flex-col gap-3 justify-between">
-                                                    <div className="flex flex-col text-right">
+                                                <div className="w-full md:w-[100px] flex flex-row md:flex-col gap-3 justify-between">
+                                                    <div className="flex flex-col md:text-right">
                                                         <span className="text-[13px] text-grey-500 font-bold leading-[18px]">Per Item</span>
                                                         <span className="font-semibold leading-[22px]">{getFormatedAmount(item.price)}</span>
                                                     </div>
