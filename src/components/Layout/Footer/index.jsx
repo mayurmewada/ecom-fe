@@ -32,7 +32,7 @@ const index = () => {
                         </div>
                         <div className="w-full sm:w-6/12 lg:w-4/12 xl:w-3/12 flex">
                             <div className="sm:max-w-[256px] w-full flex flex-col">
-                                <img className="max-w-[150px]" src={logoTrademark} alt="" />
+                                <img className="max-w-[150px] drop-shadow-[0_0_5px_#ccc]" src={logoTrademark} alt="" />
                                 <div className="contact-info mt-6 pt-6 pb-6 sm:pb-0">
                                     <p className="footer-links-heading text-[13px] uppercase font-bold tracking-wide leading-[15.6px] mb-2">Customer Support</p>
                                     <p className="contact-info-address text-[13px] leading-[19.5px] sm:leading-[19.2px] w-[193px]">Email: support@dealdeck.in</p>

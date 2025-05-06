@@ -81,7 +81,7 @@ const index = () => {
                 <div className="flex justify-between">
                     <div className="max-w-[150px] my-auto">
                         <Link to={"/"}>
-                            <img src={logoTrademark} />
+                            <img className="drop-shadow-[0_0_5px_#ccc]" src={logoTrademark} />
                         </Link>
                     </div>
                     <div className="hidden lg:flex w-full max-w-[500px]">

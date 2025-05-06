@@ -23,12 +23,13 @@ export const getUserDetails = () => {
         try {
             const token = localStorage.getItem("ddToken");
             if (!token) return;
-            const { data } = await axios.get(getUserDetailsApi, { headers: { Authorization: `Bearer ${token}` } });
+            const { data } = await axios.get(getUserDetailsApi, { headers: { Authorization: token } });
             dispatch(getUserDetailsSuccess(data.data));
         } catch (error) {
-            console.log(error.message || "Something went wrong");
+            console.log(error || "Something went wrong");
+            if (error.response.data.clearToken) localStorage.removeItem("ddToken");
         }
     };
 };
 
-export default userSlice.reducer
+export default userSlice.reducer;

@@ -28,6 +28,7 @@ export const getCartDetails = () => {
             console.log(token);
             if (token) {
                 const { data } = await axios.get(cartDetailsApi, { headers: { Authorization: token } });
+                console.log(data);
                 dispatch(fetchCartSuccess(data.data.cart));
             } else {
                 const sessionCart = JSON.parse(sessionStorage.getItem("ddCart"));
@@ -35,6 +36,7 @@ export const getCartDetails = () => {
             }
         } catch (error) {
             console.log(error.message || "Something went wrong");
+            if (error.response.data.clearToken) localStorage.removeItem("ddToken");
         }
     };
 };
@@ -46,12 +48,14 @@ export const getCartLength = () => {
             if (token) {
                 const { data } = await axios.get(cartLengthApi, { headers: { Authorization: token } });
                 dispatch(updateCartLength(data.data));
+                console.log("first", data)
             } else {
                 const sessionCart = JSON.parse(sessionStorage?.getItem("ddCart"));
                 dispatch(updateCartLength(sessionCart.length));
             }
         } catch (error) {
             console.log(error.message || "Something went wrong");
+            if (error.response.data.clearToken) localStorage.removeItem("ddToken");
         }
     };
 };
@@ -91,6 +95,7 @@ export const addToCart = (productId, name = "", brand = "", price = "", qnty = 1
             }
         } catch (error) {
             console.log(error.message || "Something went wrong");
+            if (error.response.data.clearToken) localStorage.removeItem("ddToken");
         }
     };
 };

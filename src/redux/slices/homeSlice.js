@@ -24,9 +24,8 @@ export const getHomePageData = () => {
         try {
             const { data } = await axios.get(getHomeDataApi);
             dispatch(getHomeDataSuccess(data.data));
-            // console.log(data.data);
         } catch (error) {
-            // console.log(error);
+            console.log(error?.message || "Something went wrong");
         }
     };
 };
