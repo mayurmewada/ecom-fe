@@ -25,10 +25,8 @@ export const getCartDetails = () => {
     return async (dispatch) => {
         try {
             const token = localStorage.getItem("ddToken");
-            console.log(token);
             if (token) {
                 const { data } = await axios.get(cartDetailsApi, { headers: { Authorization: token } });
-                console.log(data);
                 dispatch(fetchCartSuccess(data.data.cart));
             } else {
                 const sessionCart = JSON.parse(sessionStorage.getItem("ddCart"));
@@ -48,10 +46,11 @@ export const getCartLength = () => {
             if (token) {
                 const { data } = await axios.get(cartLengthApi, { headers: { Authorization: token } });
                 dispatch(updateCartLength(data.data));
-                console.log("first", data)
             } else {
                 const sessionCart = JSON.parse(sessionStorage?.getItem("ddCart"));
-                dispatch(updateCartLength(sessionCart.length));
+                let totalSessionCartItems = 0;
+                sessionCart.map((item) => (totalSessionCartItems += item.qnty));
+                dispatch(updateCartLength(totalSessionCartItems));
             }
         } catch (error) {
             console.log(error.message || "Something went wrong");
@@ -64,7 +63,6 @@ export const addToCart = (productId, name = "", brand = "", price = "", qnty = 1
     return async (dispatch) => {
         try {
             const token = localStorage.getItem("ddToken");
-            console.log(productId, name, brand, price, qnty, action);
             if (token) {
                 const res = await axios.post(addToCartApi, [productId, qnty, action], { headers: { Authorization: token } });
                 if (res.status === 200) {
@@ -84,13 +82,19 @@ export const addToCart = (productId, name = "", brand = "", price = "", qnty = 1
                                 cart[i].qnty = currqnty - qnty;
                             }
                             sessionStorage.setItem("ddCart", JSON.stringify(cart.filter((item) => item.qnty > 0)));
+                            const sessionCart = JSON.parse(sessionStorage.getItem("ddCart"));
+                            let totalSessionCartItems = 0;
+                            sessionCart.map((item) => (totalSessionCartItems += item.qnty));
+                            dispatch(updateCartLength(totalSessionCartItems));
                             return;
                         }
                     }
                 }
                 getSessionCart.length > 0 ? "" : (cart = []);
                 cart.push({ id: productId, name, qnty, brand, price });
-                dispatch(updateCartLength(cart.length));
+                let totalSessionCartItems = 0;
+                cart.map((item) => (totalSessionCartItems += item.qnty));
+                dispatch(updateCartLength(totalSessionCartItems));
                 sessionStorage.setItem("ddCart", JSON.stringify(cart));
             }
         } catch (error) {

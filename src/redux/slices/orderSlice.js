@@ -15,7 +15,6 @@ export const createOrder = (Razorpay) => {
     return async (dispatch) => {
         try {
             const { data } = await axios.get(createOrderApi, { headers: { Authorization: localStorage.getItem("ddToken") } });
-            console.log(data);
 
             const options = await {
                 key: razorpayKeyId,
@@ -25,7 +24,6 @@ export const createOrder = (Razorpay) => {
                 description: "Test Transaction",
                 order_id: data.data.id,
                 handler: (response) => {
-                    console.log(response);
                     alert("Payment Successful!");
                 },
                 prefill: {

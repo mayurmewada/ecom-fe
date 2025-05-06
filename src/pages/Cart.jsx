@@ -15,8 +15,6 @@ const Cart = () => {
     const { cart } = useSelector((state) => state.cartSlice);
     const { error, isLoading, Razorpay } = useRazorpay();
 
-    console.log(cart);
-
     const getTotalItems = () => {
         let items = 0;
         cart?.map((i) => (items += i.qnty));
@@ -30,7 +28,6 @@ const Cart = () => {
     };
 
     const handleQuantity = (productId, action) => {
-        console.log(productId, "", "", "", 1, action);
         dispatch(addToCart(productId, "", "", "", 1, action));
         setRefetch(true);
     };
