@@ -16,11 +16,10 @@ const Cart = () => {
 
     const [loading, setLoading] = useState(false);
     const [refetch, setRefetch] = useState(false);
+    const [node, setNode] = useState(document.querySelector(".razorpay-backdrop span"));
 
     const { cart } = useSelector((state) => state?.cartSlice);
     const { categories } = useSelector((state) => state?.homeSlice?.data);
-
-    console.log(categories);
 
     const getTotalItems = () => {
         let items = 0;
@@ -55,6 +54,7 @@ const Cart = () => {
         setLoading(true);
         if (localStorage.getItem("ddToken")) {
             dispatch(createOrder(Razorpay));
+            document.querySelector(".razorpay-backdrop span")?.remove();
             setLoading(false);
         } else {
             setTimeout(() => {
@@ -63,6 +63,10 @@ const Cart = () => {
             }, 1500);
         }
     };
+
+    useEffect(() => {
+        document.querySelector(".razorpay-backdrop span")?.remove();
+    }, [document, node]);
 
     return (
         <div className="container">
