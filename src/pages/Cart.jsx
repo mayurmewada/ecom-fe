@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Button from "../components/common/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/common/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, getCartDetails } from "../redux/slices/cartSlice";
 import { getFormatedAmount } from "../utils/helperFunctions";
 import { useRazorpay } from "react-razorpay";
 import { createOrder } from "../redux/slices/orderSlice";
+import Loader from "../components/common/Loader";
 
 const Cart = () => {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState();
-    const [refetch, setRefetch] = useState(false);
-    const { cart } = useSelector((state) => state.cartSlice);
     const { error, isLoading, Razorpay } = useRazorpay();
+    const navigate = useNavigate();
+
+    const [loading, setLoading] = useState(false);
+    const [refetch, setRefetch] = useState(false);
+
+    const { cart } = useSelector((state) => state?.cartSlice);
+    const { categories } = useSelector((state) => state?.homeSlice?.data);
+
+    console.log(categories);
 
     const getTotalItems = () => {
         let items = 0;
@@ -45,15 +52,24 @@ const Cart = () => {
     }, [refetch]);
 
     const handlePayment = () => {
-        dispatch(createOrder(Razorpay));
+        setLoading(true);
+        if (localStorage.getItem("ddToken")) {
+            dispatch(createOrder(Razorpay));
+            setLoading(false);
+        } else {
+            setTimeout(() => {
+                navigate("/login");
+                setLoading(false);
+            }, 1500);
+        }
     };
 
     return (
         <div className="container">
             <div className="flex flex-col lg:flex-row w-full gap-[64px]">
-                {loading ? (
+                {cart.length <= 0 && loading ? (
                     <Loader />
-                ) : (
+                ) : cart.length > 0 ? (
                     <>
                         <div className="w-full lg:w-8/12 xl:w-8/12 h-full top-[24px] flex flex-col gap-6">
                             <ul className="divide-y divide-y-grey-200">
@@ -113,11 +129,24 @@ const Cart = () => {
                                         <span className="w-[50%] text-left font-semibold text-grey-500">Total</span>
                                         <span className="w-[50%] text-right text-[18px] font-bold">{getFormatedAmount(getTotalPrice())}</span>
                                     </div>
-                                    <Button onClick={handlePayment} className={"w-full"} title={"Checkout"} variant={"primary"} size={"large"} />
+                                    <Button isLoading={loading} onClick={handlePayment} className={"w-full"} title={"Checkout"} variant={"primary"} size={"large"} />
                                 </div>
                             </div>
                         </div>
                     </>
+                ) : (
+                    <div className="flex flex-col w-full">
+                        <h2 className="text-[24px] font-semibold block w-full mx-auto text-center my-8">No Products in Cart</h2>
+                        <p className="mx-auto text-center mb-4">Shop with our Top chosen Categories</p>
+                        <div className="flex flex-wrap lg:flex-nowrap gap-4">
+                            {categories?.map((category, idx) => (
+                                <div key={`${category}${idx}`} onClick={() => navigate({ pathname: `/products`, search: `?category=${category}` })} className="relative w-full sm:w-[calc(50%-8px)] lg:w-1/5 border border-gray-100 hover:border-grey-200 cursor-pointer px-4 pt-7 pb-4 flex flex-col items-center gap-6">
+                                    <span className="absolute text-[80px] text-gray-100 right-[0px] top-[4px] font-[800] uppercase aspect-square h-[60px] leading-[60px] align-middle text-center">{category.split("")[0]}</span>
+                                    <h6 className="capitalize me-auto">{category}</h6>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 )}
             </div>
         </div>
