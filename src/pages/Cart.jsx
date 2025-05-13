@@ -71,9 +71,9 @@ const Cart = () => {
     return (
         <div className="container">
             <div className="flex flex-col lg:flex-row w-full gap-[64px]">
-                {cart.length <= 0 && loading ? (
+                {cart?.length <= 0 && loading ? (
                     <Loader />
-                ) : cart.length > 0 ? (
+                ) : cart?.length > 0 ? (
                     <>
                         <div className="w-full lg:w-8/12 xl:w-8/12 h-full top-[24px] flex flex-col gap-6">
                             <ul className="divide-y divide-y-grey-200">

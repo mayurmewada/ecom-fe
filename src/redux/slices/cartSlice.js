@@ -54,7 +54,7 @@ export const getCartLength = () => {
             }
         } catch (error) {
             console.log(error.message || "Something went wrong");
-            if (error.response.data.clearToken) localStorage.removeItem("ddToken");
+            if (error?.response?.data?.clearToken) localStorage.removeItem("ddToken");
         }
     };
 };
