@@ -12,24 +12,25 @@ const orderSlice = createSlice({
 });
 
 export const createOrder = (Razorpay) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
+            const { userDetails } = getState().userSlice;
             const { data } = await axios.get(createOrderApi, { headers: { Authorization: localStorage.getItem("ddToken") } });
 
             const options = await {
                 key: razorpayKeyId,
                 amount: data.data.amount,
                 currency: data.data.currency,
-                name: "DealDeck",
+                name: userDetails?.email?.split("@")?.[0],
                 description: "Test Transaction",
                 order_id: data.data.id,
                 handler: (response) => {
                     alert("Payment Successful!");
                 },
                 prefill: {
-                    name: "John Doe",
-                    email: "johndoe@gmail.com",
-                    contact: "9876543210",
+                    name: userDetails?.email?.split("@")?.[0],
+                    email: userDetails?.email,
+                    contact: userDetails?.phone,
                 },
                 theme: {
                     color: "#22262b",

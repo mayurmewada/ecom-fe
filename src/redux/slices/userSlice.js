@@ -24,7 +24,8 @@ export const getUserDetails = () => {
             const token = localStorage.getItem("ddToken");
             if (!token) return;
             const { data } = await axios.get(getUserDetailsApi, { headers: { Authorization: token } });
-            dispatch(getUserDetailsSuccess(data.data));
+            console.log(data)
+            dispatch(getUserDetailsSuccess(data.isUser));
         } catch (error) {
             console.log(error || "Something went wrong");
             if (error.response.data.clearToken) localStorage.removeItem("ddToken");
