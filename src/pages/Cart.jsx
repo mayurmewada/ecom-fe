@@ -33,6 +33,19 @@ const Cart = () => {
         return total;
     };
 
+    const calculateRazorpayCharges = (amount) => {
+        const fee = amount * 0.02;
+        const gst = fee * 0.18;
+        const totalCharges = fee + gst;
+        const netPayout = amount - totalCharges;
+
+        return {
+            fee: +fee.toFixed(2),
+            gst: +gst.toFixed(2),
+            netPayout: +netPayout.toFixed(2),
+        };
+    };
+
     const handleQuantity = (productId, action) => {
         dispatch(addToCart(productId, "", "", "", 1, action));
         setRefetch(true);
@@ -50,17 +63,17 @@ const Cart = () => {
         setLoading(false);
     }, [refetch]);
 
-    const handlePayment = () => {
+    const handlePayment = async () => {
         setLoading(true);
         if (localStorage.getItem("ddToken")) {
-            dispatch(createOrder(Razorpay));
-            document.querySelector(".razorpay-backdrop span")?.remove();
+            await dispatch(createOrder(Razorpay));
+            await document.querySelector(".razorpay-backdrop span")?.remove();
             setLoading(false);
         } else {
             setTimeout(() => {
                 navigate("/login");
                 setLoading(false);
-            }, 1500);
+            }, 1000);
         }
     };
 
@@ -78,7 +91,7 @@ const Cart = () => {
                         <div className="w-full lg:w-8/12 xl:w-8/12 h-full top-[24px] flex flex-col gap-6">
                             <ul className="divide-y divide-y-grey-200">
                                 {cart?.map((item) => (
-                                    <li className="flex">
+                                    <li key={item?.id} className="flex">
                                         <div className="bg-grey-50 w-[16px]"></div>
                                         <div className="flex flex-col md:flex-row gap-x-12 gap-y-6 py-5 pl-4 justify-between w-full">
                                             <div className="flex flex-col justify-between w-full gap-5">
@@ -123,10 +136,18 @@ const Cart = () => {
                                         <span className="w-[50%] text-left font-semibold text-grey-500">Total Items</span>
                                         <span className="w-[50%] text-right font-bold">{getTotalItems()}</span>
                                     </div>
-                                    {/* <div className="flex my-3">
-                                        <span className="w-[50%] text-left font-semibold text-grey-500">Subtotal</span>
-                                        <span className="w-[50%] text-right font-bold">{subTotal}</span>
-                                    </div> */}
+                                    <div className="flex my-3">
+                                        <span className="w-[50%] text-left font-semibold text-grey-500">Transaction Fee</span>
+                                        <span className="w-[50%] text-right font-bold">{getFormatedAmount(calculateRazorpayCharges(getTotalPrice())?.fee)}</span>
+                                    </div>
+                                    <div className="flex my-3">
+                                        <span className="w-[50%] text-left font-semibold text-grey-500">GST (18% on Transaction Fee)</span>
+                                        <span className="w-[50%] text-right font-bold">{getFormatedAmount(calculateRazorpayCharges(getTotalPrice())?.gst)}</span>
+                                    </div>
+                                    <div className="flex my-3">
+                                        <span className="w-[50%] text-left font-semibold text-grey-500">Net Amount</span>
+                                        <span className="w-[50%] text-right font-bold">{getFormatedAmount(calculateRazorpayCharges(getTotalPrice())?.netPayout)}</span>
+                                    </div>
                                 </div>
                                 <div>
                                     <div className="flex mt-4 mb-7">

@@ -22,11 +22,9 @@ export const createOrder = (Razorpay) => {
                 amount: data.data.amount,
                 currency: data.data.currency,
                 name: userDetails?.email?.split("@")?.[0],
-                description: "Test Transaction",
+                description: userDetails._id,
                 order_id: data.data.id,
-                handler: (response) => {
-                    alert("Payment Successful!");
-                },
+                handler: () => {},
                 prefill: {
                     name: userDetails?.email?.split("@")?.[0],
                     email: userDetails?.email,

@@ -85,7 +85,7 @@ const index = () => {
                         </Link>
                     </div>
                     <div className="hidden lg:flex w-full max-w-[500px]">
-                        <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} currSearchText={currSearchText} data={data} />
+                        <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} setSearchDD={setSearchDD} currSearchText={currSearchText} data={data} />
                     </div>
                     <div className="flex items-center gap-5 my-auto">
                         {cartlength ? (
@@ -127,14 +127,14 @@ const index = () => {
                     </div>
                 </div>
                 <div className="flex lg:hidden w-full h-[40px] mt-5">
-                    <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} currSearchText={currSearchText} data={data} />
+                    <SearchBar searchMenu={searchMenu} handleChange={handleChange} searchDD={searchDD} setSearchDD={setSearchDD} currSearchText={currSearchText} data={data} />
                 </div>
             </div>
         </nav>
     );
 };
 
-const SearchBar = ({ searchMenu, handleChange, searchDD, data, currSearchText }) => {
+const SearchBar = ({ searchMenu, handleChange, searchDD, setSearchDD, data, currSearchText }) => {
     const navigate = useNavigate();
     return (
         <div ref={searchMenu} className="relative z-[2] w-full">
@@ -144,7 +144,13 @@ const SearchBar = ({ searchMenu, handleChange, searchDD, data, currSearchText })
                     <ul>
                         {data?.length > 0 ? (
                             data?.map((searchResult) => (
-                                <li onClick={() => navigate({ pathname: "/product", search: `?id=${searchResult?._id}` })} key={searchResult.id} className="py-1 px-4 hover:bg-grey-50 searchdata">
+                                <li
+                                    onClick={() => {
+                                        navigate({ pathname: "/product", search: `?id=${searchResult?._id}` }), setSearchDD(false);
+                                    }}
+                                    key={searchResult.id}
+                                    className="py-1 px-4 hover:bg-grey-50 cursor-pointer searchdata"
+                                >
                                     <SearchHighlight text={searchResult.name} query={currSearchText} />
                                 </li>
                             ))
