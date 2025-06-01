@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createOrderApi } from "../v1apis";
+import { createOrderApi, getOrdersApi } from "../v1apis";
 import axios from "axios";
 const razorpayKeyId = import.meta.env.VITE_RPKEYID;
 
@@ -9,7 +9,14 @@ const orderSlice = createSlice({
         loading: false,
         orders: [],
     },
+    reducers: {
+        getOrdersSuccess: (state, { payload }) => {
+            state.orders = payload.orders;
+        },
+    },
 });
+
+export const { getOrdersSuccess } = orderSlice.actions;
 
 export const createOrder = (Razorpay) => {
     return async (dispatch, getState) => {
@@ -37,6 +44,17 @@ export const createOrder = (Razorpay) => {
 
             const razorpayInstance = await new Razorpay(options);
             razorpayInstance.open();
+        } catch (error) {
+            console.log(error.message || "Something went wrong");
+        }
+    };
+};
+
+export const getOrders = () => {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios.get(getOrdersApi, { headers: { Authorization: localStorage.getItem("ddToken") } });
+            dispatch(getOrdersSuccess(data.data));
         } catch (error) {
             console.log(error.message || "Something went wrong");
         }

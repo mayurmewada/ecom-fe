@@ -27,4 +27,7 @@ export const getUserDetailsApi = `${api_base_url}/getuserdetails`;
 export const addToCartApi = `${api_base_url}/addtocart`;
 export const cartLengthApi = `${api_base_url}/cartitems`;
 export const cartDetailsApi = `${api_base_url}/cartdetails`;
+
+// orderSlice apis
 export const createOrderApi = `${api_base_url}/create-order`;
+export const getOrdersApi = `${api_base_url}/my-orders`;

@@ -103,7 +103,14 @@ const index = () => {
                                     {isUserDD && (
                                         <div className="bg-white shadow-elevationMiddle rounded-[8px] absolute right-[0] w-[135px] py-3 z-[3]">
                                             <ul>
-                                                <li id="userDD" className="py-1 px-4 hover:bg-grey-50">
+                                                <li
+                                                    id="userDD"
+                                                    onClick={() => {
+                                                        navigate("/my-orders");
+                                                        setIsUserDD(false);
+                                                    }}
+                                                    className="py-1 px-4 hover:bg-grey-50"
+                                                >
                                                     My Orders
                                                 </li>
                                                 <li

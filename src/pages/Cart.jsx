@@ -40,8 +40,7 @@ const Cart = () => {
         const netPayout = amount - totalCharges;
 
         return {
-            fee: +fee.toFixed(2),
-            gst: +gst.toFixed(2),
+            totalCharges: +totalCharges.toFixed(2),
             netPayout: +netPayout.toFixed(2),
         };
     };
@@ -129,24 +128,16 @@ const Cart = () => {
                         <div className="w-full lg:w-4/12 xl:w-4/12">
                             <div className="shadow-elevationMiddle px-7 py-8 divide-y divide-y-grey-200">
                                 <div className="flex items-end gap-6 mb-3">
-                                    <h4 className="text-[22px] font-bold text-grey-500">Summary</h4>
+                                    <h4 className="text-[22px] font-bold text-grey-500">Summary</h4><span className="w-[50%] text-left font-semibold text-grey-500">{getTotalItems()} Items</span>
                                 </div>
                                 <div className="py-2">
-                                    <div className="flex my-3">
-                                        <span className="w-[50%] text-left font-semibold text-grey-500">Total Items</span>
-                                        <span className="w-[50%] text-right font-bold">{getTotalItems()}</span>
+                                    <div className="flex my-2">
+                                        <span className="w-[50%] text-[13px] text-left font-semibold text-grey-500">Net Amount</span>
+                                        <span className="w-[50%] text-[13px] text-right font-bold">{getFormatedAmount(calculateRazorpayCharges(getTotalPrice())?.netPayout)}</span>
                                     </div>
-                                    <div className="flex my-3">
-                                        <span className="w-[50%] text-left font-semibold text-grey-500">Transaction Fee</span>
-                                        <span className="w-[50%] text-right font-bold">{getFormatedAmount(calculateRazorpayCharges(getTotalPrice())?.fee)}</span>
-                                    </div>
-                                    <div className="flex my-3">
-                                        <span className="w-[50%] text-left font-semibold text-grey-500">GST (18% on Transaction Fee)</span>
-                                        <span className="w-[50%] text-right font-bold">{getFormatedAmount(calculateRazorpayCharges(getTotalPrice())?.gst)}</span>
-                                    </div>
-                                    <div className="flex my-3">
-                                        <span className="w-[50%] text-left font-semibold text-grey-500">Net Amount</span>
-                                        <span className="w-[50%] text-right font-bold">{getFormatedAmount(calculateRazorpayCharges(getTotalPrice())?.netPayout)}</span>
+                                    <div className="flex my-2">
+                                        <span className="w-[50%] text-[13px] text-left font-semibold text-grey-500">Charges</span>
+                                        <span className="w-[50%] text-[13px] text-right font-bold">{getFormatedAmount(calculateRazorpayCharges(getTotalPrice())?.totalCharges)}</span>
                                     </div>
                                 </div>
                                 <div>
