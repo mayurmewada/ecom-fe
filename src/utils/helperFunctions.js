@@ -4,7 +4,7 @@ export const getFormatedAmount = (amount) => {
         currency: "INR",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
-    }).format(amount);
+    }).format(Number(amount));
 };
 export const getFormatedDate = (date) => {
     const formatedDate = new Date(date * 1000);
