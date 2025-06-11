@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUserDetails } from "../../../redux/slices/userSlice";
 import { getCartLength } from "../../../redux/slices/cartSlice";
 import { debounce } from "lodash";
+import { toast } from "react-toastify";
 
 const SearchHighlight = ({ text, query }) => {
     if (!query) return text;
@@ -118,6 +119,10 @@ const index = () => {
                                                     onClick={() => {
                                                         setIsLoggedIn(false);
                                                         localStorage.removeItem("ddToken");
+                                                        setIsUserDD(false);
+                                                        toast.info("User Logged Out", {
+                                                            position: "top-center"
+                                                        })
                                                     }}
                                                     className="py-1 px-4 hover:bg-grey-50"
                                                 >
