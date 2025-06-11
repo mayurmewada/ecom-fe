@@ -3,13 +3,15 @@ import React from "react";
 import Button from "../../components/common/Button";
 import Input from "../../components/common/Input";
 import logo from "../../assets/images/dealdeck-logo-trademark.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login, signup } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const { loading } = useSelector((state) => state?.authSlice);
 
     const handleFormSubmit = (values) => {
         dispatch(signup(values, navigate));
@@ -67,7 +69,7 @@ const Signup = () => {
                                         <Input type="password" label="password" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
                                         <span className="text-[13px] text-red-500">{errors.password && touched.password && errors.password}</span>
                                     </div>
-                                    <Button variant={"primary"} size={"large"} title={"Submit"} disabled={isSubmitting} trailingIcon={<i className="ri-arrow-right-fill"></i>} type={"submit"} />
+                                    <Button isLoading={loading} variant={"primary"} size={"large"} title={"Submit"} disabled={isSubmitting} trailingIcon={<i className="ri-arrow-right-fill"></i>} type={"submit"} />
                                 </form>
                             )}
                         </Formik>

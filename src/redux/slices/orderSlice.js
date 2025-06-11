@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createOrderApi, getOrdersApi } from "../v1apis";
 import axios from "axios";
+import { toast } from "react-toastify";
 const razorpayKeyId = import.meta.env.VITE_RPKEYID;
 
 const orderSlice = createSlice({
@@ -18,7 +19,7 @@ const orderSlice = createSlice({
 
 export const { getOrdersSuccess } = orderSlice.actions;
 
-export const createOrder = (Razorpay) => {
+export const createOrder = (Razorpay, handleGetCartDetails) => {
     return async (dispatch, getState) => {
         try {
             const { userDetails } = getState().userSlice;
@@ -31,7 +32,9 @@ export const createOrder = (Razorpay) => {
                 name: userDetails?.email?.split("@")?.[0],
                 description: userDetails._id,
                 order_id: data.data.id,
-                handler: () => {},
+                handler: (res) => {
+                    handleGetCartDetails();
+                },
                 prefill: {
                     name: userDetails?.email?.split("@")?.[0],
                     email: userDetails?.email,

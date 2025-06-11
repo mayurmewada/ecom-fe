@@ -28,6 +28,7 @@
         "react-redux": "^9.2.0",
         "react-responsive-carousel": "^3.2.23",
         "react-router-dom": "^7.1.0",
+        "react-toastify": "^11.0.5",
         "remixicon": "^4.6.0"
     },
     "devDependencies": {

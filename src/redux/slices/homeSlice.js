@@ -14,18 +14,24 @@ export const homeSlice = createSlice({
         getHomeDataSuccess: (state, { payload }) => {
             state.data = payload;
         },
+        setLoading: (state, { payload }) => {
+            state.loading = payload;
+        },
     },
 });
 
-export const { getHomeDataSuccess } = homeSlice.actions;
+export const { getHomeDataSuccess, setLoading } = homeSlice.actions;
 
 export const getHomePageData = () => {
     return async (dispatch) => {
+        dispatch(setLoading(true));
         try {
             const { data } = await axios.get(getHomeDataApi);
             dispatch(getHomeDataSuccess(data.data));
+            dispatch(setLoading(false));
         } catch (error) {
             console.log(error?.message || "Something went wrong");
+            dispatch(setLoading(false));
         }
     };
 };

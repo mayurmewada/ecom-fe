@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import "remixicon/fonts/remixicon.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { ToastContainer } from "react-toastify";
 
 createRoot(document.getElementById("root")).render(
     // <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")).render(
         <BrowserRouter>
             <AppRoutes />
         </BrowserRouter>
+         <ToastContainer />
     </Provider>
     // </StrictMode>
 );

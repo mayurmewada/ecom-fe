@@ -3,7 +3,7 @@ import Button from "../components/common/Button";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/common/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, getCartDetails } from "../redux/slices/cartSlice";
+import { addToCart, getCartDetails, getCartLength } from "../redux/slices/cartSlice";
 import { getFormatedAmount } from "../utils/helperFunctions";
 import { useRazorpay } from "react-razorpay";
 import { createOrder } from "../redux/slices/orderSlice";
@@ -55,9 +55,14 @@ const Cart = () => {
         setRefetch(true);
     };
 
+    const handleGetCartDetails = () => {
+        dispatch(getCartDetails());
+        dispatch(getCartLength());
+    }
+
     useEffect(() => {
         setLoading(true);
-        dispatch(getCartDetails());
+        handleGetCartDetails()
         setRefetch(false);
         setLoading(false);
     }, [refetch]);
@@ -65,7 +70,7 @@ const Cart = () => {
     const handlePayment = async () => {
         setLoading(true);
         if (localStorage.getItem("ddToken")) {
-            await dispatch(createOrder(Razorpay));
+            await dispatch(createOrder(Razorpay, handleGetCartDetails));
             await document.querySelector(".razorpay-backdrop span")?.remove();
             setLoading(false);
         } else {

@@ -9,31 +9,39 @@ const authSlice = createSlice({
         user: {},
     },
     reducers: {
-        loginSuccess: () => {},
+        setLoading: (state, { payload }) => {
+            state.loading = payload;
+        },
     },
 });
 
-export const {} = authSlice.actions;
+export const { setLoading } = authSlice.actions;
 
 export const login = (payload, navigate) => {
     return async (dispatch) => {
+        dispatch(setLoading(true));
         try {
             const { data } = await axios.post(loginApi, payload);
             localStorage.setItem("ddToken", data.data.token);
             navigate("/");
+            dispatch(setLoading(false));
         } catch (error) {
             console.log(error.message || "Something went wrong");
+            dispatch(setLoading(false));
         }
     };
 };
 
 export const signup = (payload, navigate) => {
-    return async () => {
+    return async (dispatch) => {
+        dispatch(setLoading(true));
         try {
-            const { data } = await axios.post(signupApi, payload);
+            await axios.post(signupApi, payload);
             navigate("/login");
+            dispatch(setLoading(false));
         } catch (error) {
             console.log(error.message || "Something went wrong");
+            dispatch(setLoading(false));
         }
     };
 };
