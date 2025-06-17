@@ -17,7 +17,13 @@ const Home = () => {
     return (
         <>
             <section className="container">
-                <div className="bg-grey-50 h-[300px] w-full flex justify-center items-center font-semibold text-grey-500">Banner coming soon</div>
+                <h1 className="font-semibold text-grey-500 leading-[46px] text-[40px] tracking-[0.5px] mt-[64px] my-[100px]">
+                    Stacked with Savings,
+                    <br />
+                    Packed with style.
+                    <br />
+                    DEAL DECK
+                </h1>
             </section>
             <section className="container !mt-[44px]">
                 <h4 className="text-[22px] mb-4 font-semibold text-grey-500">Shop by Categories</h4>

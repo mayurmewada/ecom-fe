@@ -10,6 +10,7 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
+import PrivateRoute from "./components/Layout/PrivateRoute";
 
 const AppRoutes = () => {
     return (
@@ -18,7 +19,9 @@ const AppRoutes = () => {
                 <Route path={`/products`} element={<Products />} />
                 <Route path={`/product`} element={<ProductDetail />} />
                 <Route path={`/cart`} element={<Cart />} />
-                <Route path={`/my-orders`} element={<Orders />} />
+                <Route element={<PrivateRoute />}>
+                    <Route path={`/my-orders`} element={<Orders />} />
+                </Route>
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/404"} element={<NotFound />} />
                 <Route path={`/login`} element={<Login />} />
